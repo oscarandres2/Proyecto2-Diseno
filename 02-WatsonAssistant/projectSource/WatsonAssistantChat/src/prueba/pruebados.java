@@ -1,24 +1,42 @@
 package prueba;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 //Imports the Google Cloud client library
-import com.google.cloud.language.v1.Document;
-import com.google.cloud.language.v1.Document.Type;
-import com.google.cloud.language.v1.LanguageServiceClient;
-import com.google.cloud.language.v1.Sentiment;
-import com.ibm.watson.assistant.v1.Assistant;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions.Language;
+import com.ibm.watson.developer_cloud.language_translator.v3.LanguageTranslator;
+import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslateOptions;
+import com.ibm.watson.developer_cloud.language_translator.v3.model.Translation;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+import com.ibm.watson.language_translator.v3.model.TranslationResult;
+;
 
 public class pruebados {
 	public static void main(String[] args) throws Exception {
-		String apiKey = "0AC-rK7ZMahYaeGkPxmBhcCS1OWzrLLcxVyFjOLpDir2";
-		IamOptions iAmOptions = new IamOptions.Builder()
-				.apiKey(apiKey)
+		
+		//analizar
+		String apiKey1 = "0AC-rK7ZMahYaeGkPxmBhcCS1OWzrLLcxVyFjOLpDir2";
+		IamOptions iAmOptions1 = new IamOptions.Builder()
+				.apiKey(apiKey1)
 				.build();
-		ToneAnalyzer service = new ToneAnalyzer("2017-09-21", iAmOptions);
-
+		ToneAnalyzer service1 = new ToneAnalyzer("2017-09-21", iAmOptions1);
+		
+		//traducir
+		String apiKey2 = "rjkF7lgBgUhHFgi51DT12C1KWf_YknVn2FlEdo6C_X-6";
+		IamOptions iAmOptions2 = new IamOptions.Builder()
+				.apiKey(apiKey2)
+				.build();
+		LanguageTranslator service2 = new LanguageTranslator("2018-05-01", iAmOptions2);
+		
+		
+		
 		String text =
 				  "I know the times are difficult! Our sales have been "
 				      + "disappointing for the past three quarters for our data analytics "
@@ -31,12 +49,44 @@ public class pruebados {
 				      + "Our clients are hungry for analytical tools to improve their "
 				      + "business outcomes. Economy has nothing to do with it.";
 
-				// Call the service and get the tone
-				ToneOptions toneOptions = new ToneOptions.Builder()
-				  .text(text)
-				  .build();
+	// Call the service and get the tone
+		ToneOptions toneOptions = new ToneOptions.Builder()
+		  .text(text)
+		  .build();
+	
+		ToneAnalysis tone = service1.tone(toneOptions).execute();
+		com.ibm.watson.developer_cloud.tone_analyzer.v3.model.DocumentAnalysis x = tone.getDocumentTone();
+		
+		try {
+		    JSONObject obj = new JSONObject(x);
+		    JSONArray arr = obj.getJSONArray("tones");
+		    ArrayList<String> sentimientosProcentaje = new ArrayList<String>();
+		    
+		    for (int i = 0; i < arr.length(); i++)
+		    {
+		        String sentimientoingles = arr.getJSONObject(i).getString("toneName");
+		        
+		        //traducir
+		        TranslateOptions translateOptions = new TranslateOptions.Builder()
+		        		  .addText(sentimientoingles)
+		        		  .source(Language.EN)
+		        		  .target(Language.ES)
+		        		  .build();
+		        com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationResult translationResult = service2.translate(translateOptions).execute();
+		        
+		        List<Translation> sentimientoTraducido = translationResult.getTranslations();
+			    
+		        String sentimientoTRaducidoFinal = sentimientoTraducido.get(0).getTranslationOutput().toString();
+		        //fin traducir
+		        
+		        
+		        Double porcentaje = arr.getJSONObject(i).getDouble("score");
+		        sentimientosProcentaje.add(sentimientoTRaducidoFinal+" "+porcentaje.toString());
+		    }
+		    System.out.println(sentimientosProcentaje);
 
-				ToneAnalysis tone = service.tone(toneOptions).execute();
-				System.out.println(tone);
-	}
+		  } catch(Exception e) {
+			  System.out.println(e);
+		  }
+}
 }
