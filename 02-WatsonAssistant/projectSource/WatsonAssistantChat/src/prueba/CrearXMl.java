@@ -65,7 +65,7 @@ public class CrearXMl {
           elemento1.setAttributeNode(atributo1);
           
           Element elemento2 = doc.createElement("Fecha");
-          elemento2.setTextContent(get);
+          elemento2.setTextContent("2020");
           rootElement.appendChild(elemento2);
           //Se escribe el contenido del XML en un archivo
           TransformerFactory transformerFactory = TransformerFactory.newInstance();
