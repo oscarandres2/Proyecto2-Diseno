@@ -5,9 +5,9 @@ import java.io.PrintWriter;
 public class CrearCsv {
 	public static void main(String[] args) {
 		 try {
-			String nombre = "probandoo";
-			String tipoArchivo = ".csv";
-			nombre += tipoArchivo;
+		   String nombre = "probandoo";
+		   String tipoArchivo = ".xml";
+		   nombre += tipoArchivo;
 		   PrintWriter pw= new PrintWriter(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\"+nombre));
 		   StringBuilder sb=new StringBuilder();
 		   sb.append("Asunto");

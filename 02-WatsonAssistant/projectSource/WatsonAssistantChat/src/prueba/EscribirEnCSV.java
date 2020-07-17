@@ -7,11 +7,11 @@ public class EscribirEnCSV {
 	      //Instantiating the CSVWriter class
 	      CSVWriter writer = new CSVWriter(new FileWriter("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\libro1.csv"));
 	      //Writing data to a csv file
-	      String line1[] = {"cedula", "nombre",  "fecha", "dept"};
-	      String line2[] = {"1", "Oscar",  "2012-01-01", "IT"};
-	      String line3[] = {"2", "Daniel", "2013-02-26", "Operations"};
-	      String line4[] = {"3", "Maria",  "2016-10-10", "HR"};
-	      String line5[] = {"4", "Rquel",  "2012-01-01", "IT"};
+	      String line1[] = {"cedula", "nombre",  "fecha"};
+	      String line2[] = {"1", "Oscar",  "2012-01-01"};
+	      String line3[] = {"2", "Daniel", "2013-02-26"};
+	      String line4[] = {"3", "Maria",  "2016-10-10"};
+	      String line5[] = {"4", "Rquel",  "2012-01-01"};
 	      //Writing data to the csv file
 	      writer.writeNext(line1);
 	      writer.writeNext(line2);
