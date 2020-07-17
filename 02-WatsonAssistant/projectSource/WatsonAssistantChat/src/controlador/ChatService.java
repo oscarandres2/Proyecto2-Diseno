@@ -31,7 +31,6 @@ import logicadecontrolador.ControladorCifradoDescifrado;
  */
 public class ChatService {
 
-	
   private String administrativo = "daniel";
   private String contraAdmin = "123";
   
