@@ -1,7 +1,12 @@
 package modelo;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 public abstract class Bitácora {
 	
@@ -47,7 +52,7 @@ public abstract class Bitácora {
   
   public abstract  void crearBitacora();
   
-  public abstract String leerBitacora();
+  public abstract String leerBitacora() throws ParserConfigurationException, SAXException, IOException;
 
 
 }

@@ -1,9 +1,11 @@
 package modelo;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -13,6 +15,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class XML extends Bitácora {
 
@@ -53,9 +57,43 @@ public class XML extends Bitácora {
 	}
 
 	@Override
-	public String leerBitacora() {
-		// TODO Auto-generated method stub
-		return null;
+	public String leerBitacora() throws ParserConfigurationException, SAXException, IOException {
+		String resultado = "";
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		 
+		//Build Document
+		Document document = builder.parse(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\formato.xml"));
+		 
+		//Normalize the XML Structure; It's just too important !!
+		document.getDocumentElement().normalize();
+		 
+		//Here comes the root node
+		Element root = document.getDocumentElement();
+		System.out.println(root.getNodeName());
+		 
+		//Get all employees
+		NodeList nList = document.getElementsByTagName("Operacion");
+		System.out.println("============================");
+		 
+		for (int temp = 0; temp < nList.getLength(); temp++){
+		 Node node = nList.item(temp);
+		 System.out.println("");    //Just a separator
+		 if (node.getNodeType() == Node.ELEMENT_NODE){
+			 
+		    //Print each employee's detail
+		    Element eElement = (Element) node;
+		    resultado += eElement.getAttribute("TipoOperación")+ "\n";
+		    resultado += eElement.getElementsByTagName("fechaOperacion").item(0).getTextContent();
+		    resultado += eElement.getElementsByTagName("horaOperación").item(0).getTextContent();
+		    System.out.println("El tipo operacion es : "    + eElement.getAttribute("TipoOperación"));
+		    System.out.println("Fecha : "  + eElement.getElementsByTagName("fechaOperacion").item(0).getTextContent());
+		    System.out.println("Hora : "   + eElement.getElementsByTagName("horaOperación").item(0).getTextContent());
+		    
+		 }
+		}
+		return resultado;
+		
 	}
 	
     private static Node createUserElement(Document doc, String tipoOperacion, String fechaOperacion, String horaOperacion) {
