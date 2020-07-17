@@ -31,6 +31,10 @@ import logicadecontrolador.ControladorCifradoDescifrado;
  */
 public class ChatService {
 
+	
+  private String administrativo = "daniel";
+  private String contraAdmin = "123";
+  
   private String apiKey = "fOXpM_sJMpW1iEu8GiLFj_ygAfRYdCDZREb2fKoWBDOF";
   private String assistantURL = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/71acf5a8-b786-4a4e-968d-058d5044dc80" ;
   private static String workspaceId = "1d5f5b30-5cca-4c72-b694-8cdbc3bbe978";
@@ -78,15 +82,26 @@ public class ChatService {
 	String moduloAdministrador = (String) context.get("moduloAdministrador");
 	String usuario = (String) context.get("usuario");
 	String contrasena = (String) context.get("contrasena");
+	String moduloAdministradorTerminado = (String) context.get("moduloAdministradorTerminado");
+	String tipoCriterio = (String) context.get("tipoCriterio");
 	
 	//nuevo
 	
 	ArrayList<String> nuevo = new ArrayList<String>();
 	ArrayList<String> validacionFiltro = new ArrayList<String>();
 	
+	//nuevo
 	if(moduloAdministrador != null) {
-		
+		if(usuario != null && contrasena != null && validarUsuario(usuario,contrasena)) {
+			context.put("usuarioValidado","si");
+			
+			if(moduloAdministradorTerminado != null) {
+				System.out.println(tipoCriterio);
+			}
+			
+		}
 	}
+	//nuevo
 	else if(validarMensajeIncompleto(terminado,operacionCompleta)) {
 	  nuevo.add(mensaje); // 0 para el mensaje
 	  nuevo.add(validarInstanciacion); //1 para validar la instanciacion
@@ -133,7 +148,12 @@ public class ChatService {
 	
 	
 	//nuevo
-	
+  private boolean validarUsuario(String admin, String contra) {
+	  if(admin.equals(administrativo) && contra.equals(contraAdmin)) {
+		  return true;
+	  }
+	  return false;
+  }
 
 	//nuevo
 	
