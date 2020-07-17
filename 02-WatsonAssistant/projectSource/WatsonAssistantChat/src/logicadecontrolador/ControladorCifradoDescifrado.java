@@ -3,8 +3,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import logicadeinstanciacion.SimpleCifradoFactory;
-import logicadenegocios.ICifrado;
-import logicadenegocios.Mensaje;
+import modelo.ICifrado;
+import modelo.Mensaje;
 import util.EnvioMensajes;
 
 /**

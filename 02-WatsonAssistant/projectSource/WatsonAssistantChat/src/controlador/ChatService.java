@@ -1,4 +1,4 @@
-package conexion;
+package controlador;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -74,11 +74,20 @@ public class ChatService {
 	String terminado = (String) context.get("terminado");
 	String validarInstanciacion = (String) context.get("validarInstanciacion");
 	
+	//nuevo
+	String moduloAdministrador = (String) context.get("moduloAdministrador");
+	String usuario = (String) context.get("usuario");
+	String contrasena = (String) context.get("contrasena");
+	
+	//nuevo
+	
 	ArrayList<String> nuevo = new ArrayList<String>();
 	ArrayList<String> validacionFiltro = new ArrayList<String>();
 	
-	
-	if(validarMensajeIncompleto(terminado,operacionCompleta)) {
+	if(moduloAdministrador != null) {
+		
+	}
+	else if(validarMensajeIncompleto(terminado,operacionCompleta)) {
 	  nuevo.add(mensaje); // 0 para el mensaje
 	  nuevo.add(validarInstanciacion); //1 para validar la instanciacion
 	  nuevo.add(subtipo); // 2 para el subtipo	
@@ -121,6 +130,12 @@ public class ChatService {
 	 return Response.status(Status.OK).entity(object.toString()).build();
   }
 	
+	
+	
+	//nuevo
+	
+
+	//nuevo
 	
   private String obtenerCorreo(String response) {
 	  try {
