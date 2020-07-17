@@ -1,6 +1,8 @@
 package prueba;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -8,8 +10,10 @@ import com.opencsv.CSVWriter;
 
 public class EscribirCsv {
 	public static void main(String args[]) throws Exception {
-	      //Instantiating the CSVWriter class
-		CSVWriter writer = new CSVWriter(new FileWriter("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\libro1.csv"));
+	      //Crea el archivo
+		 PrintWriter pw= new PrintWriter(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\prueba.csv"));
+		//Se agarra el path del archivo creado para escribir la informacion
+		 CSVWriter writer = new CSVWriter(new FileWriter("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\prueba.csv"));
 	      //Writing data to a csv file
 	      String line1[] = {"cedula", "nombre",  "fecha"};
 	      String line2[] = {"1", "Oscar",  "2012-01-01"};
