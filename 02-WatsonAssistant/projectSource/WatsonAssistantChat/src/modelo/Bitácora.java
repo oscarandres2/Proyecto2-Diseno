@@ -5,33 +5,49 @@ import java.util.Date;
 
 public abstract class Bitácora {
 	
-  protected Date fechaOperacion;
-  protected Date horaOperacion;
+  protected String fechaOperacion;
+  protected String horaOperacion;
   protected String tipoOperacion;
   
-  private void setFechaOperacion(){
+  /*private void setFechaOperacion(){
 	    Calendar calendario;
 	    calendario = Calendar.getInstance();
 	    fechaOperacion = (Date)calendario.getTime();
-  }
+  }*/
 
   public String getFechaOperacion(){
-	    SimpleDateFormat mascara = new SimpleDateFormat("dd/MM/yy");
-	    return mascara.format(fechaOperacion);
+    Date fecha = new Date();
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MMM/yyyy");
+    fechaOperacion = formato.format( fecha );
+    System.out.println( fechaOperacion);
+    return fechaOperacion;
+   
   }
 
-  private void setHoraOperacion(){
+ /* private void setHoraOperacion(){
 	    Calendar calendario;
 	    calendario = Calendar.getInstance();
 	    horaOperacion = (Date)calendario.getTime();
-   }
+   }*/
 
+  /*public String getHoraOperacion(){
+    java.util.Date date = new java.util.Date();
+    SimpleDateFormat mascara = new SimpleDateFormat("HH:mm:ss");
+    System.out.println( horaOperacion);
+    return mascara.format(horaOperacion);
+  }*/
   public String getHoraOperacion(){
-	    SimpleDateFormat mascara = new SimpleDateFormat("HH:mm:ss");
-	    return mascara.format(horaOperacion);
-  }
+	   Date hora = new Date();
+	    SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
+	    horaOperacion = formato.format( hora );
+	    System.out.println( horaOperacion);
+	    return horaOperacion;
+	  }
+
   
-  public abstract  void almacenarBitacora();
+  public abstract  void crearBitacora();
+  
+  public abstract String leerBitacora();
 
 
 }
