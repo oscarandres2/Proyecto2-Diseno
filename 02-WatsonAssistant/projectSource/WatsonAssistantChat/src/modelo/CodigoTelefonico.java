@@ -1,4 +1,4 @@
-package logicadenegocios;
+package modelo;
 import java.util.ArrayList;
 import util.ConversionAscii;
 

@@ -1,5 +1,5 @@
-package logicadenegocios;
-import logicadenegocios.Mensaje;
+package modelo;
+import modelo.Mensaje;
 
 
 
