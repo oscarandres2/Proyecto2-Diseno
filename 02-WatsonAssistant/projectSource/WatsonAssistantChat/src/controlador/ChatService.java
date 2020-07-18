@@ -80,9 +80,9 @@ public class ChatService {
 	//nuevo
 	String moduloAdministrador = (String) context.get("moduloAdministrador");
 	String usuario = (String) context.get("usuario");
-	String contrasena = (String) context.get("contrasena");
+	String contrasena;
 	String moduloAdministradorTerminado = (String) context.get("moduloAdministradorTerminado");
-	String tipoCriterio = (String) context.get("tipoCriterio");
+	String tipoCriterio;
 	
 	//nuevo
 	
@@ -91,10 +91,14 @@ public class ChatService {
 	
 	//nuevo
 	if(moduloAdministrador != null) {
+
+		contrasena = obetenerContraAdmin(assistantResponse);
 		if(usuario != null && contrasena != null && validarUsuario(usuario,contrasena)) {
 			context.put("usuarioValidado","si");
-			
+
+			moduloAdministradorTerminado = buscarModuloAdminTerminado(assistantResponse);
 			if(moduloAdministradorTerminado != null) {
+				tipoCriterio = buscarTipoCriterio(assistantResponse);
 				System.out.println(tipoCriterio);
 			}
 			
@@ -160,6 +164,38 @@ public class ChatService {
 	  try {
 	    JSONObject obj = new JSONObject(response);
 	    String correo = obj.getJSONObject("context").getString("correo");
+	    return correo;
+	  } catch(Exception e) {
+		  return null;
+	  }
+	  
+  }
+  
+  private String buscarModuloAdminTerminado(MessageResponse assistantResponse) {
+	  try {
+	    JSONObject obj = new JSONObject(assistantResponse);
+	    String correo = obj.getJSONObject("context").getString("moduloAdministradorTerminado");
+	    return correo;
+	  } catch(Exception e) {
+		  return null;
+	  }
+	  
+  }
+  
+  private String buscarTipoCriterio(MessageResponse assistantResponse) {
+	  try {
+	    JSONObject obj = new JSONObject(assistantResponse);
+	    String correo = obj.getJSONObject("context").getString("tipoCriterio");
+	    return correo;
+	  } catch(Exception e) {
+		  return null;
+	  }
+  }
+  
+  private String obetenerContraAdmin(MessageResponse assistantResponse) {
+	  try {
+	    JSONObject obj = new JSONObject(assistantResponse);
+	    String correo = obj.getJSONObject("context").getString("contrasena");
 	    return correo;
 	  } catch(Exception e) {
 		  return null;
