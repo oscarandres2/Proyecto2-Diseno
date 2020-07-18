@@ -20,35 +20,37 @@ import org.xml.sax.SAXException;
 
 public class XML extends Bitácora {
 
+  /**
+   * Método que sirve para crear las
+   * bitácoras de tipo XML.	
+   */
+  public void crearBitacora() {
+	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	DocumentBuilder dBuilder;
+	try {
+    dBuilder = dbFactory.newDocumentBuilder();
+    Document documento = dBuilder.newDocument();
+     //Agrega elemento al documento
+    Element elementoRaiz = documento.createElement("Operaciones");
+    // agrega el elementoRaiz al documento
+    documento.appendChild(elementoRaiz);
 
-	@Override
-	public void crearBitacora() {
-	  DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	  DocumentBuilder dBuilder;
-	  try {
-	    dBuilder = dbFactory.newDocumentBuilder();
-	    Document documento = dBuilder.newDocument();
-	     //Agrega elemento al documento
-        Element elementoRaiz = documento.createElement("Operaciones");
-        // agrega el elementoRaiz al documento
-        documento.appendChild(elementoRaiz);
+    // agrega el elemento al documento
+    elementoRaiz.appendChild(createUserElement(documento, "Codificacion", getFechaOperacion(), getHoraOperacion()));
 
-        // agrega el elemento al documento
-        elementoRaiz.appendChild(createUserElement(documento, "Codificacion", getFechaOperacion(), getHoraOperacion()));
+    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+    Transformer transformer = transformerFactory.newTransformer();
+    // usa para mejorar la forma
+    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+    DOMSource source = new DOMSource(documento);
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        // usa para mejorar la forma
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        DOMSource source = new DOMSource(documento);
+    // escribe el documento
+    StreamResult console = new StreamResult(System.out);
+    StreamResult file = new StreamResult(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\formato.xml"));
 
-        // escribe el documento
-        StreamResult console = new StreamResult(System.out);
-        StreamResult file = new StreamResult(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\formato.xml"));
-
-        //escribe los datos
-        transformer.transform(source, console);
-        transformer.transform(source, file);
+    //escribe los datos
+    transformer.transform(source, console);
+    transformer.transform(source, file);
 
 	        } catch (Exception e) {
 	            e.printStackTrace();
@@ -56,43 +58,38 @@ public class XML extends Bitácora {
 		
 	}
 
-	@Override
-	public String leerBitacora() throws ParserConfigurationException, SAXException, IOException {
-		String resultado = "";
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		 
-		//Build Document
-		Document document = builder.parse(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\formato.xml"));
-		 
-		//Normalize the XML Structure; It's just too important !!
-		document.getDocumentElement().normalize();
-		 
-		//Here comes the root node
-		Element root = document.getDocumentElement();
-		System.out.println(root.getNodeName());
-		 
-		//Get all employees
-		NodeList nList = document.getElementsByTagName("Operacion");
-		 
-		for (int temp = 0; temp < nList.getLength(); temp++){
-		 Node node = nList.item(temp);
-		 System.out.println("");    //Just a separator
-		 if (node.getNodeType() == Node.ELEMENT_NODE){
-		    Element eElement = (Element) node;
-		    resultado += "El tipo operación es : " + eElement.getAttribute("TipoOperación")+ "\n";
-		    resultado += "Fecha  : "  +eElement.getElementsByTagName("fechaOperacion").item(0).getTextContent()+ "\n";
-		    resultado += "Hora : "   +eElement.getElementsByTagName("horaOperación").item(0).getTextContent()+ "\n";		    
-		 }
-		}
-		 System.out.println(resultado);
-		return resultado;
+  /**
+   * Método que sirve para leer las
+   * bitácoras de tipo XML.	
+   */
+  public String leerBitacora() throws ParserConfigurationException, SAXException, IOException {
+	String resultado = "";
+	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	DocumentBuilder builder = factory.newDocumentBuilder();
+	//Construye el documento
+	Document document = builder.parse(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\formato.xml"));
+	//Normaliza la estructrura del xml
+	document.getDocumentElement().normalize();
+	//crea el nodo raiz o base
+	Element root = document.getDocumentElement();
+	//Obtiene el nodo de operacion
+	NodeList nList = document.getElementsByTagName("Operacion");
+	for (int temp = 0; temp < nList.getLength(); temp++){
+	 Node node = nList.item(temp);
+	 if (node.getNodeType() == Node.ELEMENT_NODE){
+	    Element eElement = (Element) node;
+	    resultado += "El tipo operación es : " + eElement.getAttribute("TipoOperación")+ "\n";
+	    resultado += "Fecha  : "  +eElement.getElementsByTagName("fechaOperacion").item(0).getTextContent()+ "\n";
+	    resultado += "Hora : "   +eElement.getElementsByTagName("horaOperación").item(0).getTextContent()+ "\n";		    
+	 }
+	}
+	System.out.println(resultado);
+	return resultado;
 		
 	}
 	
     private static Node createUserElement(Document doc, String tipoOperacion, String fechaOperacion, String horaOperacion) {
         Element operacion = doc.createElement("Operacion");
-
         operacion.setAttribute("TipoOperación", tipoOperacion);
         operacion.appendChild(createUserElements(doc, operacion, "fechaOperacion", fechaOperacion));
         operacion.appendChild(createUserElements(doc, operacion, "horaOperación", horaOperacion));
@@ -100,17 +97,11 @@ public class XML extends Bitácora {
     }
     
 
-
     private static Node createUserElements(Document documento, Element element, String nombre, String fechaOperacion) {
         Element node = documento.createElement(nombre);
         node.appendChild(documento.createTextNode(fechaOperacion));
         return node;
     }
 
-
-  
-	    
-
-
-
+    
 }
