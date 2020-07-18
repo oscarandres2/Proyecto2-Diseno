@@ -6,6 +6,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 import modelo.CSV;
+import modelo.TramaPlana;
 import modelo.XML;
 
 public class APl {
@@ -19,6 +20,10 @@ public class APl {
 	CSV nuevo = new CSV();
 	nuevo.crearBitacora();
 	nuevo.leerBitacora();
+	
+	TramaPlana txt = new TramaPlana();
+	txt.crearBitacora();
+	txt.leerBitacora();
 
 	}
 
