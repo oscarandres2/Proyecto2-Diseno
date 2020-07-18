@@ -29,7 +29,7 @@ public class XML extends Bitácora {
 	    dBuilder = dbFactory.newDocumentBuilder();
 	    Document documento = dBuilder.newDocument();
 	     //Agrega elemento al documento
-        Element elementoRaiz = documento.createElement("Operacion");
+        Element elementoRaiz = documento.createElement("Operaciones");
         // agrega el elementoRaiz al documento
         documento.appendChild(elementoRaiz);
 
@@ -74,24 +74,18 @@ public class XML extends Bitácora {
 		 
 		//Get all employees
 		NodeList nList = document.getElementsByTagName("Operacion");
-		System.out.println("============================");
 		 
 		for (int temp = 0; temp < nList.getLength(); temp++){
 		 Node node = nList.item(temp);
 		 System.out.println("");    //Just a separator
 		 if (node.getNodeType() == Node.ELEMENT_NODE){
-			 
-		    //Print each employee's detail
 		    Element eElement = (Element) node;
-		    resultado += eElement.getAttribute("TipoOperación")+ "\n";
-		    resultado += eElement.getElementsByTagName("fechaOperacion").item(0).getTextContent();
-		    resultado += eElement.getElementsByTagName("horaOperación").item(0).getTextContent();
-		    System.out.println("El tipo operacion es : "    + eElement.getAttribute("TipoOperación"));
-		    System.out.println("Fecha : "  + eElement.getElementsByTagName("fechaOperacion").item(0).getTextContent());
-		    System.out.println("Hora : "   + eElement.getElementsByTagName("horaOperación").item(0).getTextContent());
-		    
+		    resultado += "El tipo operación es : " + eElement.getAttribute("TipoOperación")+ "\n";
+		    resultado += "Fecha  : "  +eElement.getElementsByTagName("fechaOperacion").item(0).getTextContent()+ "\n";
+		    resultado += "Hora : "   +eElement.getElementsByTagName("horaOperación").item(0).getTextContent()+ "\n";		    
 		 }
 		}
+		 System.out.println(resultado);
 		return resultado;
 		
 	}
