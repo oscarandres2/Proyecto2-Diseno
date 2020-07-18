@@ -1,14 +1,19 @@
 package modelo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
+
+/**
+ * @author Oscar y Daniel
+ * Clase TramaPlana que contiene los atributos y 
+ * métodos necesarios.
+ *
+ */
 public class TramaPlana extends Bitácora {
 
 	@Override
