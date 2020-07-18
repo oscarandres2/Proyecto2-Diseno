@@ -2,9 +2,9 @@
     <wb-module deploy-name="WatsonAssistantChat-0.0.1">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
+        <property name="context-root" value="WatsonAssistantChat"/>
         <property name="java-output-path" value="/WatsonAssistantChat/WebContent/WEB-INF/classes"/>
-        <property name="context-root" value="WatsonAssistantChatV2"/>
     </wb-module>
 </project-modules>

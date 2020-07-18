@@ -1,21 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>WatsonAssistantChat</groupId>
 	<artifactId>WatsonAssistantChat</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<dependencies>
-	<dependency>
-   <groupId>com.opencsv</groupId>
-   <artifactId>opencsv</artifactId>
-   <version>4.4</version>
-</dependency>
-<dependency>
-   <groupId>org.apache.commons</groupId>
-   <artifactId>commons-lang3</artifactId>
-   <version>3.9</version>
-</dependency>
 		<dependency>
 			<groupId>asm</groupId>
 			<artifactId>asm</artifactId>
@@ -37,36 +28,16 @@
 			<version>1.19.4</version>
 		</dependency>
 		<dependency>
-		  <groupId>com.ibm.watson</groupId>
-		  <artifactId>ibm-watson</artifactId>
-		  <version>8.5.0</version>
-		</dependency>
-		<dependency>
 			<groupId>com.ibm.watson.developer_cloud</groupId>
 			<artifactId>java-sdk</artifactId>
 			<version>6.13.2</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20180130</version>
 		</dependency>
-   		<dependency>
-           <groupId>com.sun.mail</groupId>
-           <artifactId>javax.mail</artifactId>
-           <version>1.6.2</version>
-       </dependency>
-	<dependency>
-<groupId>com.googlecode.objectify</groupId>
-<artifactId>objectify</artifactId>
-<version>6.0.6</version>
-</dependency>
-<dependency>
-<groupId>com.google.cloud</groupId>
-<artifactId>google-cloud-language</artifactId>
-</dependency>
-</dependencies>
+	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -95,15 +66,4 @@
 			</plugin>
 		</plugins>
 	</build>
-<dependencyManagement>
-<dependencies>
-<dependency>
-<groupId>com.google.cloud</groupId>
-<artifactId>libraries-bom</artifactId>
-<type>pom</type>
-<scope>import</scope>
-<version>8.1.0</version>
-</dependency>
-</dependencies>
-</dependencyManagement>
 </project>

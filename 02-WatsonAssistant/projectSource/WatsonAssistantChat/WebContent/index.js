@@ -3,7 +3,7 @@ class App extends React.Component {
         super()
         this.state = {
             messages: [],
-        	ctx: {usr: 'WatsonAssistant'}
+        	ctx: {usr: 'ezamora'}
         }
         this.sendMessage = this.sendMessage.bind(this)
     } 
@@ -20,8 +20,7 @@ class App extends React.Component {
     	
         var ctxStr = JSON.stringify(this.state.ctx);
     	fetch(`http://localhost:9080/WatsonAssistantChat/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
-    	//fetch(`https://pandemialsV2.mybluemix.net/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
-    	.then((response) => {
+        .then((response) => {
           return response.json()
         })
         .then((myJsonResponse) => {
@@ -94,7 +93,7 @@ class SendMessageForm extends React.Component {
                 <input
                     onChange={this.handleChange}
                     value={this.state.message}
-                    placeholder="Escriba el mensaje y presione ENTER "
+                    placeholder="Type your message and hit ENTER"
                     type="text" />
             </form>
         )
@@ -102,7 +101,7 @@ class SendMessageForm extends React.Component {
 }
 
 function Title() {
-  return <p className="title">WatsonAssistantChat Diseño-2020</p>
+  return <p className="title">Simple chat app (For IBM cloud deploy)</p>
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
