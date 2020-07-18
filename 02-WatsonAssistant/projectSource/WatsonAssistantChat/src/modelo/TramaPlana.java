@@ -50,7 +50,7 @@ public class TramaPlana extends Bitácora {
 		      
 	  
 	    } catch (FileNotFoundException e) {
-	      System.out.println("An error occurred.");
+	      System.out.println("Se presentó un error al crear el archivo");
 	      e.printStackTrace();
 	    }
 		return informacion;
