@@ -1,4 +1,5 @@
 package modelo;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
+//import com.opencsv.CSVReader;
+
 import com.opencsv.CSVReader;
 
 
@@ -17,7 +20,7 @@ import com.opencsv.CSVReader;
  * métodos necesarios.
  *
  */
-public class CSV extends Bitácora {
+public class CSV extends Bitácora  {
 
   /**
    * Método que permite crear la bitácora 

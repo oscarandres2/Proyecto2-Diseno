@@ -3,22 +3,29 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.xml.sax.SAXException;
 
+/**
+ * 
+ * @author Oscar y Daniel
+ * Clase Bitácora que contiene los atributos
+ * y métodos necesarios.
+ */
 public abstract class Bitácora {
 	
   protected String fechaOperacion;
   protected String horaOperacion;
   protected String tipoOperacion;
   
-  /*private void setFechaOperacion(){
-	    Calendar calendario;
-	    calendario = Calendar.getInstance();
-	    fechaOperacion = (Date)calendario.getTime();
-  }*/
+  
+  public String getTipoOperacion() {
+    return tipoOperacion;	  
+  }
+  
+  public void setTipoOperacion(String pTipoOperacion) {
+    tipoOperacion = pTipoOperacion;	  
+  }
 
   public String getFechaOperacion(){
     Date fecha = new Date();
@@ -29,18 +36,7 @@ public abstract class Bitácora {
    
   }
 
- /* private void setHoraOperacion(){
-	    Calendar calendario;
-	    calendario = Calendar.getInstance();
-	    horaOperacion = (Date)calendario.getTime();
-   }*/
 
-  /*public String getHoraOperacion(){
-    java.util.Date date = new java.util.Date();
-    SimpleDateFormat mascara = new SimpleDateFormat("HH:mm:ss");
-    System.out.println( horaOperacion);
-    return mascara.format(horaOperacion);
-  }*/
   public String getHoraOperacion(){
 	   Date hora = new Date();
 	    SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
@@ -53,6 +49,19 @@ public abstract class Bitácora {
   public abstract  void crearBitacora();
   
   public abstract String leerBitacora() throws ParserConfigurationException, SAXException, IOException;
+  
+  /* private void setHoraOperacion(){
+  Calendar calendario;
+  calendario = Calendar.getInstance();
+  horaOperacion = (Date)calendario.getTime();
+  }*/
+
+ /*public String getHoraOperacion(){
+ java.util.Date date = new java.util.Date();
+ SimpleDateFormat mascara = new SimpleDateFormat("HH:mm:ss");
+ System.out.println( horaOperacion);
+ return mascara.format(horaOperacion);
+  }*/
 
 
 }
