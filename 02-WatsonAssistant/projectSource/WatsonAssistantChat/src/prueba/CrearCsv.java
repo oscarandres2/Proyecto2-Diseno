@@ -10,11 +10,11 @@ public class CrearCsv {
 		   nombre += tipoArchivo;
 		   PrintWriter pw= new PrintWriter(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\"+nombre));
 		   StringBuilder sb=new StringBuilder();
-		   sb.append("Asunto");
+		   sb.append("TipoOperación");
 		   sb.append(",");
-		   sb.append("Fecha");
+		   sb.append("FechaOperacion");
 		   sb.append(",");
-		   sb.append("Mensaje");
+		   sb.append("HoraOperacion");
 		   sb.append("\r\n");
 		   sb.append("Codificacion");
 		   sb.append(",");

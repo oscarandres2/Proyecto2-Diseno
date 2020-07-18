@@ -14,10 +14,13 @@ public class LeerCSV {
 	      List list = reader.readAll();
 	      //Getting the Iterator object
 	      Iterator it = list.iterator();
+	      String resultado = "";
 	      while(it.hasNext()) {
 	         String[] str = (String[]) it.next();
+	         resultado += Arrays.toString(str);
 	         System.out.println(Arrays.toString(str));
 	      }
+	      System.out.println("El resultado es "+ resultado);
 	   }
 
 }

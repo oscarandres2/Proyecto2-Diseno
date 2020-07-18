@@ -1,8 +1,6 @@
 package modelo;
-
 import java.io.File;
 import java.io.IOException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -11,7 +9,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -79,8 +76,8 @@ public class XML extends Bitácora {
 	 if (node.getNodeType() == Node.ELEMENT_NODE){
 	    Element eElement = (Element) node;
 	    resultado += "El tipo operación es : " + eElement.getAttribute("TipoOperación")+ "\n";
-	    resultado += "Fecha  : "  +eElement.getElementsByTagName("fechaOperacion").item(0).getTextContent()+ "\n";
-	    resultado += "Hora : "   +eElement.getElementsByTagName("horaOperación").item(0).getTextContent()+ "\n";		    
+	    resultado += "Fecha  : "  +eElement.getElementsByTagName("FechaOperacion").item(0).getTextContent()+ "\n";
+	    resultado += "Hora : "   +eElement.getElementsByTagName("HoraOperación").item(0).getTextContent()+ "\n";		    
 	 }
 	}
 	System.out.println(resultado);
@@ -91,8 +88,8 @@ public class XML extends Bitácora {
     private static Node createUserElement(Document doc, String tipoOperacion, String fechaOperacion, String horaOperacion) {
         Element operacion = doc.createElement("Operacion");
         operacion.setAttribute("TipoOperación", tipoOperacion);
-        operacion.appendChild(createUserElements(doc, operacion, "fechaOperacion", fechaOperacion));
-        operacion.appendChild(createUserElements(doc, operacion, "horaOperación", horaOperacion));
+        operacion.appendChild(createUserElements(doc, operacion, "FechaOperacion", fechaOperacion));
+        operacion.appendChild(createUserElements(doc, operacion, "HoraOperación", horaOperacion));
         return operacion;
     }
     
