@@ -15,7 +15,6 @@ import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
-import com.ibm.watson.language_translator.v3.model.TranslationResult;
 
 
 public class pruebados {
