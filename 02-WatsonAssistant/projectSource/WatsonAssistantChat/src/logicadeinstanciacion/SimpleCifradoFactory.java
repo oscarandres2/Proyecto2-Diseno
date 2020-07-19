@@ -34,10 +34,10 @@ public class SimpleCifradoFactory {
       IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {	
 	ICifrado iCifrado;
 	if(pSubType == null) {
-	  iCifrado = (ICifrado) Class.forName("logicadenegocios."+pType).newInstance();
+	  iCifrado = (ICifrado) Class.forName("modelo."+pType).newInstance();
 	  return iCifrado;
 	}
-	Constructor construc = Class.forName("logicadenegocios."+pType).getConstructor(pParametro.getClass());
+	Constructor construc = Class.forName("modelo."+pType).getConstructor(pParametro.getClass());
 	iCifrado = (ICifrado) construc.newInstance(pParametro);
 	return iCifrado;	
   }

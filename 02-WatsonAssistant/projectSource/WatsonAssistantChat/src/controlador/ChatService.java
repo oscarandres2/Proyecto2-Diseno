@@ -17,6 +17,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import logicadecontrolador.ControladorCifradoDescifrado;
+import logicadeinstanciacion.SingletonAnalsisSentimientos;
 
 
 
@@ -119,8 +120,6 @@ public class ChatService {
 	  nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
 	  
 	  ejecutarTipoOperacion(tipoOperacion,context,nuevo);	
-	
-	  
 	  
 	}else if(validarMensajeCompleto(terminado,operacionCompleta)){
 	   msjcompleto = eliminarFinal(msjcompleto);
@@ -222,13 +221,25 @@ public class ChatService {
 	return "sin valor";	
   }
 	
+  private boolean validarSentimientos(String mensaje) {
+	  if(SingletonAnalsisSentimientos.getInstance().isNitequette(mensaje)) {
+		  return true;
+	  }
+	  return false;
+  }
   
   private void ejecutarTipoOperacion(String pTipoOperacion,Context pContext, ArrayList<String> pNuevo) {
-    if(pTipoOperacion.equals("cifrado")) {
-	  pContext.put("mensajeCifrado",llamarCifrado(pNuevo));
-	  return;
-	}
-	pContext.put("mensajeDescifrado",llamarDescifrado(pNuevo));
+    
+	  //0 es el mensaje
+	  if(validarSentimientos(pNuevo.get(0))) {
+		  if(pTipoOperacion.equals("cifrado")) {
+			  pContext.put("mensajeCifrado",llamarCifrado(pNuevo));
+			  return;
+			}
+			pContext.put("mensajeDescifrado",llamarDescifrado(pNuevo));
+			return;
+	  }
+	  pContext.put("noNiquette","si");
   }
 	
   
