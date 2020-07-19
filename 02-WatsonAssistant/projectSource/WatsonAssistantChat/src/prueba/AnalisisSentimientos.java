@@ -17,7 +17,8 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
 
-public class pruebados {
+public class AnalisisSentimientos {
+	
 	public static void main(String[] args) throws Exception {
 		
 		//analizar
