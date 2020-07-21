@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,13 +26,12 @@ public class CSV extends Bitácora  {
   /**
    * Método que permite crear la bitácora 
    * de tipo CSV.
+ * @throws FileNotFoundException 
    */
-  public void crearBitacora() {
-	try{
-	  String nombre = "probandoo";
-	  String tipoArchivo = ".csv";
-	  nombre += tipoArchivo;
-	  PrintWriter pw= new PrintWriter(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\"+nombre));
+  public void crearBitacora(String pTipo, String pNombre) throws FileNotFoundException {
+	
+
+	  PrintWriter pw= new PrintWriter(new File("C:\\"+pNombre+".csv"));
 	  StringBuilder sb=new StringBuilder();
 	  sb.append("TipoOperación");
 	  sb.append(",");
@@ -48,9 +48,7 @@ public class CSV extends Bitácora  {
 	  pw.write(sb.toString());
 	  pw.close();
 	  System.out.println("Finalizado");
-	   } catch (Exception e) {
-	      // TODO: handle exception
-	   }
+	   
 		
 	}
 
@@ -75,4 +73,5 @@ public class CSV extends Bitácora  {
 		return resultado;
 	}
 
+	
 }

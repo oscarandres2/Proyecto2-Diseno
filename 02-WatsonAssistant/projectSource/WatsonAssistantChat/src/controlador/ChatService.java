@@ -1,5 +1,7 @@
 package controlador;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -9,7 +11,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
+
 import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Context;
 import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
@@ -17,7 +24,16 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import logicadecontrolador.ControladorCifradoDescifrado;
+
+import logicadeinstanciacion.SingletonAnalsisSentimientos;
+import modelo.CSV;
+import modelo.TramaPlana;
+import modelo.XML;
+import prueba.Bitacora;
+import prueba.OperacionUsuario;
+
 import logicadeinstanciacion.SingletonControlador;
+
 
 
 
@@ -55,11 +71,15 @@ public class ChatService {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
+	 * @throws JAXBException 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws ParserConfigurationException 
 	 */
 	@GET
 	@Produces("application/json")
   public Response getResponse(@QueryParam("conversationMsg") String conversationMsg, @QueryParam("conversationCtx") 
-    String conversationCtx) throws InstantiationException, IllegalAccessException, ClassNotFoundException {	
+    String conversationCtx) throws InstantiationException, IllegalAccessException, ClassNotFoundException, ParserConfigurationException, SAXException, IOException, JAXBException {	
 		
 	Assistant service = getService( conversationMsg, conversationCtx);
 	Context context = getContext(conversationCtx);		
@@ -107,6 +127,10 @@ public class ChatService {
 	//nuevo
 	
 	else if(validarMensajeIncompleto(terminado,operacionCompleta)) {
+
+	  
+	  
+	  
 	  nuevo.add(mensaje); // 0 para el mensaje
 	  nuevo.add(validarInstanciacion); //1 para validar la instanciacion
 	  nuevo.add(subtipo); // 2 para el subtipo	
@@ -119,9 +143,14 @@ public class ChatService {
 	  nuevo.add(filtarEncontradoTextoIncompleto(validacionFiltro));//3
 	  nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
 	  
-	  ejecutarTipoOperacion(tipoOperacion,context,nuevo);	
+	  ejecutarTipoOperacion(tipoOperacion,context,nuevo);
+	  //UtilBitacora.validarArchivos();
+	   añadirBitacora(tipoOperacion, mensaje, subtipo);
+	
+	  
 	  
 	}else if(validarMensajeCompleto(terminado,operacionCompleta)){
+
 	   msjcompleto = eliminarFinal(msjcompleto);
 	   nuevo.add(msjcompleto); // 0 para el mensaje
 	   nuevo.add(validarInstanciacion); //1 para validar la instanciacion
@@ -139,6 +168,10 @@ public class ChatService {
 	   nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
 	   
 	   ejecutarTipoOperacion(tipoOperacion,context,nuevo);
+	   UtilBitacora util = new UtilBitacora();
+	   util.validarArchivos();
+	   añadirBitacora(tipoOperacion, mensaje, subtipo);
+	
 	 }	
 	 input = new InputData.Builder(conversationMsg).build();
      options = new MessageOptions.Builder(workspaceId).input(input).context(context).build();
@@ -146,6 +179,32 @@ public class ChatService {
 	 JSONObject object = terminarOperacion(assistantResponse);
 	 return Response.status(Status.OK).entity(object.toString()).build();
   }
+	
+	
+	//nuevoo
+	private OperacionUsuario crearOperacionUsuario(String pTipoAccion, String pTextoOperacion, String pTipoCifradoDescifrado) {
+	  String tipoAccion = pTipoAccion;
+	  String textoOperacion = pTextoOperacion;
+	  String tipoCifradoDescifrado = pTipoCifradoDescifrado;
+	  
+	  OperacionUsuario operacionUsuario  = new OperacionUsuario();
+	  operacionUsuario.agregarDatos(tipoAccion, textoOperacion, tipoCifradoDescifrado);
+	  return operacionUsuario;		 
+		
+		
+	}
+	
+	public void añadirBitacora(String pTipoAccion, String pTextoOperacion, String pTipoCifradoDescifrado) throws ParserConfigurationException, SAXException, IOException, JAXBException {
+	  Bitacora xml = UtilBitacora.leerBitacoraXML();
+	  //Bitacora csv = UtilBitacora.leerBitacora(pBitacora, pTipoArchivo)
+	  
+	  OperacionUsuario operacionUsuario = crearOperacionUsuario(pTipoAccion, pTextoOperacion, pTipoCifradoDescifrado);
+	  
+	  xml.agregarOperacionUsuario(operacionUsuario);
+	  
+	  UtilBitacora.validarArchivos();
+	  UtilBitacora.crearXML(xml);
+	}
 	
 	
 	
