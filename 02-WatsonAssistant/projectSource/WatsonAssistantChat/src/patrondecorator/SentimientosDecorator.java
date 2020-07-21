@@ -35,7 +35,7 @@ public class SentimientosDecorator extends CifradoDecorator {
 	public Mensaje cifrar(Mensaje pMensaje) {
 		if(isNitequette(pMensaje.getMensajeViejo())) {
 			decoratedShape.cifrar(pMensaje);
-			pMensaje.setMensajeCifrado(pMensaje.getMensajeCifrado()+"       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeViejo()))));
+			pMensaje.setMensajeCifrado(pMensaje.getMensajeCifrado()+".       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeViejo()))));
 			return pMensaje;
 		}
 		return pMensaje;
@@ -44,7 +44,7 @@ public class SentimientosDecorator extends CifradoDecorator {
 	public Mensaje descifrar(Mensaje pMensaje) {
 		if(isNitequette(decoratedShape.descifrar(pMensaje).getMensajeDescifrado())) {
 			decoratedShape.descifrar(pMensaje);
-			pMensaje.setMensajeDescifrado(pMensaje.getMensajeDescifrado()+"       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeDescifrado()))));
+			pMensaje.setMensajeDescifrado(pMensaje.getMensajeDescifrado()+".       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeDescifrado()))));
 			return pMensaje;
 		}
 		pMensaje.setMensajeDescifrado(null);
