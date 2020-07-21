@@ -80,15 +80,12 @@ public class UtilBitacora {
 	 
   }
   protected static void crearXML(Bitacora pBitacoraXML) throws JAXBException {
-	  System.out.println("entro");
 	    File file = new File(path+".xml");
-	    System.out.println(path);
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Bitacora.class);
 
 	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-	    System.out.println("hola");
 
 	    jaxbMarshaller.marshal(pBitacoraXML, file);// this line create customer.xml file in specified path.
 
@@ -147,6 +144,15 @@ public class UtilBitacora {
 	return resultado;
   }
   
+  
+  protected static Bitacora leerBitacora(String pTipoArchivo) throws IOException {
+	if(pTipoArchivo.equals("csv")) {
+		return leerInformacionBitacora("csv", ",");
+	} else {
+		return leerInformacionBitacora("txt", "\t");
+	} 
+	  
+  }
   
   private static Bitacora leerInformacionBitacora(String pTipoArchivo,String pTipoSeparador) throws IOException {
     BufferedReader buffered = new BufferedReader(new FileReader(path+"."+pTipoArchivo));
