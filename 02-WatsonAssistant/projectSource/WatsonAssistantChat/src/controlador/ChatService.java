@@ -17,7 +17,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import logicadecontrolador.ControladorCifradoDescifrado;
-import logicadeinstanciacion.SingletonAnalsisSentimientos;
+import logicadeinstanciacion.SingletonControlador;
 
 
 
@@ -84,7 +84,6 @@ public class ChatService {
 	String contrasena;
 	String moduloAdministradorTerminado = (String) context.get("moduloAdministradorTerminado");
 	String tipoCriterio;
-	
 	//nuevo
 	
 	ArrayList<String> nuevo = new ArrayList<String>();
@@ -106,6 +105,7 @@ public class ChatService {
 		}
 	}
 	//nuevo
+	
 	else if(validarMensajeIncompleto(terminado,operacionCompleta)) {
 	  nuevo.add(mensaje); // 0 para el mensaje
 	  nuevo.add(validarInstanciacion); //1 para validar la instanciacion
@@ -220,26 +220,23 @@ public class ChatService {
 	}
 	return "sin valor";	
   }
-	
-  private boolean validarSentimientos(String mensaje) {
-	  if(SingletonAnalsisSentimientos.getInstance().isNitequette(mensaje)) {
-		  return true;
-	  }
-	  return false;
-  }
   
   private void ejecutarTipoOperacion(String pTipoOperacion,Context pContext, ArrayList<String> pNuevo) {
-    
-	  //0 es el mensaje
-	  if(validarSentimientos(pNuevo.get(0))) {
-		  if(pTipoOperacion.equals("cifrado")) {
-			  pContext.put("mensajeCifrado",llamarCifrado(pNuevo));
-			  return;
-			}
-			pContext.put("mensajeDescifrado",llamarDescifrado(pNuevo));
-			return;
+
+	if(pTipoOperacion.equals("cifrado")) {
+	  //nueva linea
+	  if(llamarCifrado(pNuevo) != null) {
+		  pContext.put("mensajeCifrado",llamarCifrado(pNuevo));
+		  return;
 	  }
-	  pContext.put("noNiquette","si");
+	}
+	//nueva linea
+	else if(llamarDescifrado(pNuevo) != null) {
+	  pContext.put("mensajeDescifrado",llamarDescifrado(pNuevo));
+	  return;
+	}
+	pContext.put("noNiquette","si");
+
   }
 	
   
@@ -333,14 +330,12 @@ public class ChatService {
   
 	
   private String llamarCifrado(ArrayList<String> pLista) {	
-	ControladorCifradoDescifrado controlador = new ControladorCifradoDescifrado();
-   	return controlador.ejecutarCifrado(pLista);
+	return SingletonControlador.getInstance().ejecutarCifrado(pLista);
   }
 	
   
   private String llamarDescifrado(ArrayList<String> pLista)  {	
-	ControladorCifradoDescifrado controlador = new ControladorCifradoDescifrado(); 
-	return controlador.ejecutarDescifrado(pLista);
+	return SingletonControlador.getInstance().ejecutarDescifrado(pLista);
   }
 
 		
