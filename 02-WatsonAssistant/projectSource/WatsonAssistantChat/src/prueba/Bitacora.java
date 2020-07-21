@@ -48,9 +48,7 @@ public ArrayList<OperacionUsuario> operacionesActuales(){
 			operacionesActuales.add(operacionUsuario);			
 		}  
 	  }
-	  
 	  return operacionesActuales;
-	 
   }
   
   

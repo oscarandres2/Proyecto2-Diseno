@@ -148,6 +148,15 @@ public class UtilBitacora {
   }
   
   
+  protected static Bitacora leerBitacora(String pTipoArchivo) throws IOException {
+	if(pTipoArchivo.equals("csv")) {
+		return leerInformacionBitacora("csv", ",");
+	} else {
+		return leerInformacionBitacora("txt", "\t");
+	} 
+	  
+  }
+  
   private static Bitacora leerInformacionBitacora(String pTipoArchivo,String pTipoSeparador) throws IOException {
     BufferedReader buffered = new BufferedReader(new FileReader(path+"."+pTipoArchivo));
     Bitacora bitacora = new Bitacora();

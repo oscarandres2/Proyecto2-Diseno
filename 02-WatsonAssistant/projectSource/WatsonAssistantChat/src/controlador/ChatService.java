@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import logicadecontrolador.ControladorCifradoDescifrado;
 
-import logicadeinstanciacion.SingletonAnalsisSentimientos;
+
 import modelo.CSV;
 import modelo.TramaPlana;
 import modelo.XML;
@@ -144,7 +144,7 @@ public class ChatService {
 	  nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
 	  
 	  ejecutarTipoOperacion(tipoOperacion,context,nuevo);
-	  //UtilBitacora.validarArchivos();
+	  UtilBitacora.validarArchivos();
 	   añadirBitacora(tipoOperacion, mensaje, subtipo);
 	
 	  
@@ -169,7 +169,6 @@ public class ChatService {
 	   
 	   ejecutarTipoOperacion(tipoOperacion,context,nuevo);
 	   UtilBitacora util = new UtilBitacora();
-	   util.validarArchivos();
 	   añadirBitacora(tipoOperacion, mensaje, subtipo);
 	
 	 }	
@@ -196,14 +195,20 @@ public class ChatService {
 	
 	public void añadirBitacora(String pTipoAccion, String pTextoOperacion, String pTipoCifradoDescifrado) throws ParserConfigurationException, SAXException, IOException, JAXBException {
 	  Bitacora xml = UtilBitacora.leerBitacoraXML();
-	  //Bitacora csv = UtilBitacora.leerBitacora(pBitacora, pTipoArchivo)
+	  Bitacora csv = UtilBitacora.leerBitacora("csv");
+	  Bitacora txt = UtilBitacora.leerBitacora("txt");
 	  
 	  OperacionUsuario operacionUsuario = crearOperacionUsuario(pTipoAccion, pTextoOperacion, pTipoCifradoDescifrado);
 	  
 	  xml.agregarOperacionUsuario(operacionUsuario);
+	  csv.agregarOperacionUsuario(operacionUsuario);
+	  txt.agregarOperacionUsuario(operacionUsuario);
+	  
 	  
 	  UtilBitacora.validarArchivos();
 	  UtilBitacora.crearXML(xml);
+	  UtilBitacora.crearBitacora(csv, "csv");
+	  UtilBitacora.crearBitacora(txt, "txt");
 	}
 	
 	
