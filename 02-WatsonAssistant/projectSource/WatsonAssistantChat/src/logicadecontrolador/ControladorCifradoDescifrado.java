@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import logicadeinstanciacion.SimpleCifradoFactory;
 import modelo.ICifrado;
 import modelo.Mensaje;
+import patrondecorator.BitacoraDecorator;
+import patrondecorator.SentimientosDecorator;
 
 
 /**
@@ -37,7 +39,11 @@ public class ControladorCifradoDescifrado {
   private ICifrado crearCifradoDescifrado(String pTipo, String subTipo, Object parametro) throws InstantiationException,
     IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
     ICifrado cifrado;
-    cifrado = factory.crearCifradoDescifrado(pTipo, subTipo, parametro);
+
+    cifrado = new BitacoraDecorator(factory.crearCifradoDescifrado(pTipo, subTipo, parametro));
+    //revisar
+    //cifrado = factory.crearCifradoDescifrado(pTipo, subTipo, parametro);
+    
     return cifrado;
   }
   
@@ -46,7 +52,6 @@ public class ControladorCifradoDescifrado {
 		strategy = crearCifradoDescifrado(pTipo, pSubTipo, parametro);
 	} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException
 			| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
   }
@@ -62,9 +67,6 @@ public class ControladorCifradoDescifrado {
 	Mensaje mensaje = new Mensaje(pLista.get(0));	
 	asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
 	strategy.cifrar(mensaje);
-//	if(pLista.get(4) != null) {
-//		enviarCorreo(pLista.get(4),"Mensaje codificado: "+mensaje.getMensajeCifrado());
-//	}
 	return mensaje.getMensajeCifrado(); 
   }
   
@@ -78,22 +80,9 @@ public class ControladorCifradoDescifrado {
   public String ejecutarDescifrado(ArrayList<String> pLista) {
 	Mensaje mensaje = new Mensaje(pLista.get(0));
 	mensaje.setMensajeCifrado(pLista.get(0));
-	
 	asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
 	strategy.descifrar(mensaje);
-//	if(pLista.get(4) != null) {
-//		enviarCorreo(pLista.get(4),"Mensaje descodificado: "+mensaje.getMensajeDescifrado());
-//	}
-	System.out.print(mensaje.getMensajeDescifrado());
 	return mensaje.getMensajeDescifrado();	
   }
-  
-//  private void enviarCorreo(String pCorreo,String pMensaje) {
-//    try {
-//	  EnvioMensajes.enviarSms(pCorreo,pMensaje);
-//	}catch(Exception e) {
-//		System.out.print(e);
-//	}
-//  }
 
 }
