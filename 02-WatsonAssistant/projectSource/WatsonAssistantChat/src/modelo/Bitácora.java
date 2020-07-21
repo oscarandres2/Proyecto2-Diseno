@@ -1,4 +1,5 @@
 package modelo;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,7 +47,7 @@ public abstract class Bitácora {
 	  }
 
   
-  public abstract  void crearBitacora();
+  public abstract  void crearBitacora(String pTipo, String pNombre) throws FileNotFoundException;
   
   public abstract String leerBitacora() throws ParserConfigurationException, SAXException, IOException;
   

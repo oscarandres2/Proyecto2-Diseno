@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -13,7 +14,10 @@ public class APl {
 
 	public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
 		
-	XML prueba = new XML();
+	
+		Date d1 = new Date(); 
+        System.out.println("Current date is " + d1); 
+		/*XML prueba = new XML();
 	prueba.crearBitacora();
 	prueba.leerBitacora();
 	
@@ -23,7 +27,7 @@ public class APl {
 	
 	TramaPlana txt = new TramaPlana();
 	txt.crearBitacora();
-	txt.leerBitacora();
+	txt.leerBitacora();*/
 
 	}
 

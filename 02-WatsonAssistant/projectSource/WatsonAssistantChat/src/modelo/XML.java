@@ -28,7 +28,7 @@ public class XML extends Bitácora {
    * Método que sirve para crear las
    * bitácoras de tipo XML.	
    */
-  public void crearBitacora() {
+  public void crearBitacora(String pTipo,String pNombre) {
 	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder dBuilder;
 	try {
@@ -40,7 +40,7 @@ public class XML extends Bitácora {
     documento.appendChild(elementoRaiz);
 
     // agrega el elemento al documento
-    elementoRaiz.appendChild(createUserElement(documento, "Codificacion", getFechaOperacion(), getHoraOperacion()));
+    elementoRaiz.appendChild(createUserElement(documento, pTipo, getFechaOperacion(), getHoraOperacion()));
 
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     Transformer transformer = transformerFactory.newTransformer();
@@ -50,7 +50,7 @@ public class XML extends Bitácora {
 
     // escribe el documento
     StreamResult console = new StreamResult(System.out);
-    StreamResult file = new StreamResult(new File("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\formato.xml"));
+    StreamResult file = new StreamResult(new File("C:\\"+pNombre+".xml"));
 
     //escribe los datos
     transformer.transform(source, console);

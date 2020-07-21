@@ -17,16 +17,16 @@ import org.xml.sax.SAXException;
 public class TramaPlana extends Bitácora {
 
 	@Override
-	public void crearBitacora() {
+	public void crearBitacora(String pTipo, String pNombre) {
 		try {
-		      FileWriter archivo = new FileWriter("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\final.txt");
+		      FileWriter archivo = new FileWriter("C:\\Users\\Oscar\\OneDrive\\Escritorio\\prueba\\"+pNombre+".txt");
 		      archivo.write("TipoOperación");
 		      archivo.write(",");
 		      archivo.write("FechaOperación");
 		      archivo.write(",");
 		      archivo.write("HoraOperación");
 		      archivo.write("\r\n");
-		      archivo.write("Descodificacion");
+		      archivo.write(pTipo);
 		      archivo.write(",");
 		      archivo.write(getFechaOperacion());
 		      archivo.write(",");
