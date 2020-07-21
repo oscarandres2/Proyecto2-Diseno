@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -24,7 +25,7 @@ public class UtilBitacora {
   private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
 
   
-  public static void validarArchivos() throws JAXBException, FileNotFoundException {
+  public static void validarArchivos() throws JAXBException, IOException {
 	System.out.println(path);
     File xml = new File(path+".xml");
     File csv = new File(path+".csv");
@@ -49,29 +50,31 @@ public class UtilBitacora {
   }
   
   
-  
-  private static void crearBitacora(Bitacora pBitacora,String pTipoSeparador, String pTipoArchivo) throws FileNotFoundException {
-	  PrintWriter pw= new PrintWriter(new File(path+"."+pTipoArchivo));
-	  StringBuilder sb=new StringBuilder();  
+  //cammbioooos
+  private static void crearBitacora(Bitacora pBitacora,String pTipoSeparador, String pTipoArchivo) throws IOException {
+	  FileWriter file= new FileWriter(path+"."+pTipoArchivo,true);  
 	  
 	  for(OperacionUsuario operacionUsuario: pBitacora.getOperacionesUsuario() ) {
-	    sb.append(operacionUsuario.getFechaAccion().toString());
-	    sb.append(pTipoSeparador);
-	    sb.append(operacionUsuario.getTipoAccion());
-	    sb.append(pTipoSeparador);
-	    sb.append(operacionUsuario.getTextoOperacion());
-	    sb.append(pTipoSeparador);
-	    sb.append(operacionUsuario.getTipoCifradoDescifrado());
-	    sb.append(pTipoSeparador);
-	    sb.append("\n");
+		  file.append(operacionUsuario.getFechaAccion().toString());
+		  file.append(pTipoSeparador);
+		  file.append(operacionUsuario.getTipoAccion());
+		  file.append(pTipoSeparador);
+	    file.append(operacionUsuario.getTextoOperacion());
+	    file.append(pTipoSeparador);
+	    file.append(operacionUsuario.getTipoCifradoDescifrado());
+	    file.append(pTipoSeparador);
+	    file.append("\n");
 		  
 	  }
 	  
-	  pw.write(sb.toString());
-	  pw.close();
+	  file.flush();
+	  file.close();
   }
   
-  protected static void crearBitacora(Bitacora pBitacora, String pTipoArchivo) throws FileNotFoundException {
+  
+  //arreglaaar
+  
+  protected static void crearBitacora(Bitacora pBitacora, String pTipoArchivo) throws IOException {
 	if(pTipoArchivo.equals("txt")) {
 	  	crearBitacora(pBitacora, "\t", pTipoArchivo);
 	} else {

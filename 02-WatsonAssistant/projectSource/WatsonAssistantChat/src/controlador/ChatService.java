@@ -103,7 +103,8 @@ public class ChatService {
 	String usuario = (String) context.get("usuario");
 	String contrasena;
 	String moduloAdministradorTerminado = (String) context.get("moduloAdministradorTerminado");
-	String tipoCriterio;
+	String tipoCriterio = (String) context.get("tipoCriterio");
+	String fuenteBitacora = (String) context.get("fuenteBitacora");
 	//nuevo
 	
 	ArrayList<String> nuevo = new ArrayList<String>();
@@ -119,6 +120,9 @@ public class ChatService {
 			moduloAdministradorTerminado = buscarModuloAdminTerminado(assistantResponse);
 			if(moduloAdministradorTerminado != null) {
 				tipoCriterio = buscarTipoCriterio(assistantResponse);
+				if(tipoCriterio.equals("todos los registros")) {
+					context.put("historial",UtilBitacora.bitacoraToStringXML(UtilBitacora.leerBitacoraXML()));
+				}
 				System.out.println(tipoCriterio);
 			}
 			
@@ -146,6 +150,8 @@ public class ChatService {
 	  ejecutarTipoOperacion(tipoOperacion,context,nuevo);
 	  UtilBitacora.validarArchivos();
 	   añadirBitacora(tipoOperacion, mensaje, subtipo);
+	   
+	   System.out.println(UtilBitacora.bitacoraToStringXML(UtilBitacora.leerBitacoraXML()));
 	
 	  
 	  
@@ -168,7 +174,6 @@ public class ChatService {
 	   nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
 	   
 	   ejecutarTipoOperacion(tipoOperacion,context,nuevo);
-	   UtilBitacora util = new UtilBitacora();
 	   añadirBitacora(tipoOperacion, mensaje, subtipo);
 	
 	 }	
