@@ -27,14 +27,14 @@ public class Bitacora {
   
   
   
-  public ArrayList<OperacionUsuario> totalOperaciones(){
-    ArrayList<OperacionUsuario> operacionesTotales = new ArrayList<OperacionUsuario>(); 
-    for(OperacionUsuario operacionUsuario : operacionesUsuario) {
-    	operacionesTotales.add(operacionUsuario);    	
-    }
-    return operacionesTotales;
-	  
-  }
+//  public ArrayList<OperacionUsuario> totalOperaciones(){
+//    ArrayList<OperacionUsuario> operacionesTotales = new ArrayList<OperacionUsuario>(); 
+//    for(OperacionUsuario operacionUsuario : operacionesUsuario) {
+//    	operacionesTotales.add(operacionUsuario);    	
+//    }
+//    return operacionesTotales;
+//	  
+//  }
   
   
   @SuppressWarnings("deprecation")

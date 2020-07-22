@@ -1,4 +1,4 @@
-package controlador;
+package patrondecorator;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -22,7 +23,8 @@ import prueba.OperacionUsuario;
 
 public class UtilBitacora {
 	
-  private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
+  //private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
+  private static String path = "C:\\Users\\danqp\\Desktop\\bitacoras\\bitacora";
 
   
   public static void validarArchivos() throws JAXBException, IOException {
@@ -53,7 +55,7 @@ public class UtilBitacora {
   //cammbioooos
   private static void crearBitacora(Bitacora pBitacora,String pTipoSeparador, String pTipoArchivo) throws IOException {
 	  FileWriter file= new FileWriter(path+"."+pTipoArchivo,true);  
-	  
+	  System.out.println(pBitacora.operacionesUsuario.size());
 	  for(OperacionUsuario operacionUsuario: pBitacora.getOperacionesUsuario() ) {
 		  file.append(operacionUsuario.getFechaAccion().toString());
 		  file.append(pTipoSeparador);
@@ -89,7 +91,7 @@ public class UtilBitacora {
 	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-
+	    //System.out.println(pBitacoraXML.toString());
 	    jaxbMarshaller.marshal(pBitacoraXML, file);// this line create customer.xml file in specified path.
 
 	  }
@@ -102,6 +104,7 @@ public class UtilBitacora {
     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
     Bitacora bitacora = (Bitacora) jaxbUnmarshaller.unmarshal(file);
 
+    System.out.println(bitacora.toString());
     return bitacora;
 
   }
@@ -166,7 +169,7 @@ public class UtilBitacora {
        
        OperacionUsuario operacionUsuario = new OperacionUsuario();
        operacionUsuario.agregarDatos(resultado[1], resultado[2], resultado[3]);
-       operacionUsuario.setFechaAccion();
+       operacionUsuario.setFechaAccion(new Date());
        
        bitacora.agregarOperacionUsuario(operacionUsuario);
     	 

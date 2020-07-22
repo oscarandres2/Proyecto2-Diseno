@@ -29,6 +29,7 @@ import logicadecontrolador.ControladorCifradoDescifrado;
 import modelo.CSV;
 import modelo.TramaPlana;
 import modelo.XML;
+import patrondecorator.UtilBitacora;
 import prueba.Bitacora;
 import prueba.OperacionUsuario;
 
@@ -120,10 +121,7 @@ public class ChatService {
 			moduloAdministradorTerminado = buscarModuloAdminTerminado(assistantResponse);
 			if(moduloAdministradorTerminado != null) {
 				tipoCriterio = buscarTipoCriterio(assistantResponse);
-				if(tipoCriterio.equals("todos los registros")) {
-					context.put("historial",UtilBitacora.bitacoraToStringXML(UtilBitacora.leerBitacoraXML()));
-				}
-				System.out.println(tipoCriterio);
+				//context.put("historial",mostrarConTipoCriterio(tipoCriterio,fuenteBitacora));
 			}
 			
 		}
@@ -132,9 +130,6 @@ public class ChatService {
 	
 	else if(validarMensajeIncompleto(terminado,operacionCompleta)) {
 
-	  
-	  
-	  
 	  nuevo.add(mensaje); // 0 para el mensaje
 	  nuevo.add(validarInstanciacion); //1 para validar la instanciacion
 	  nuevo.add(subtipo); // 2 para el subtipo	
@@ -148,10 +143,8 @@ public class ChatService {
 	  nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
 	  
 	  ejecutarTipoOperacion(tipoOperacion,context,nuevo);
-	  UtilBitacora.validarArchivos();
-	   añadirBitacora(tipoOperacion, mensaje, subtipo);
 	   
-	   System.out.println(UtilBitacora.bitacoraToStringXML(UtilBitacora.leerBitacoraXML()));
+	   //System.out.println(UtilBitacora.bitacoraToStringXML(UtilBitacora.leerBitacoraXML()));
 	
 	  
 	  
@@ -174,7 +167,6 @@ public class ChatService {
 	   nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
 	   
 	   ejecutarTipoOperacion(tipoOperacion,context,nuevo);
-	   añadirBitacora(tipoOperacion, mensaje, subtipo);
 	
 	 }	
 	 input = new InputData.Builder(conversationMsg).build();
@@ -184,39 +176,9 @@ public class ChatService {
 	 return Response.status(Status.OK).entity(object.toString()).build();
   }
 	
-	
-	//nuevoo
-	private OperacionUsuario crearOperacionUsuario(String pTipoAccion, String pTextoOperacion, String pTipoCifradoDescifrado) {
-	  String tipoAccion = pTipoAccion;
-	  String textoOperacion = pTextoOperacion;
-	  String tipoCifradoDescifrado = pTipoCifradoDescifrado;
-	  
-	  OperacionUsuario operacionUsuario  = new OperacionUsuario();
-	  operacionUsuario.agregarDatos(tipoAccion, textoOperacion, tipoCifradoDescifrado);
-	  return operacionUsuario;		 
-		
-		
-	}
-	
-	public void añadirBitacora(String pTipoAccion, String pTextoOperacion, String pTipoCifradoDescifrado) throws ParserConfigurationException, SAXException, IOException, JAXBException {
-	  Bitacora xml = UtilBitacora.leerBitacoraXML();
-	  Bitacora csv = UtilBitacora.leerBitacora("csv");
-	  Bitacora txt = UtilBitacora.leerBitacora("txt");
-	  
-	  OperacionUsuario operacionUsuario = crearOperacionUsuario(pTipoAccion, pTextoOperacion, pTipoCifradoDescifrado);
-	  
-	  xml.agregarOperacionUsuario(operacionUsuario);
-	  csv.agregarOperacionUsuario(operacionUsuario);
-	  txt.agregarOperacionUsuario(operacionUsuario);
-	  
-	  
-	  UtilBitacora.validarArchivos();
-	  UtilBitacora.crearXML(xml);
-	  UtilBitacora.crearBitacora(csv, "csv");
-	  UtilBitacora.crearBitacora(txt, "txt");
-	}
-	
-	
+  private String mostrarConTipoCriterio(String tipoCriterio, String tipoFuente) {
+	  return "";
+  }	
 	
 	//nuevo
   private boolean validarUsuario(String admin, String contra) {
@@ -292,18 +254,21 @@ public class ChatService {
   
   private void ejecutarTipoOperacion(String pTipoOperacion,Context pContext, ArrayList<String> pNuevo) {
 
+	  String cifrado;
+	  String descifrado;
 	if(pTipoOperacion.equals("cifrado")) {
 	  //nueva linea
-	  if(llamarCifrado(pNuevo) != null) {
-		  pContext.put("mensajeCifrado",llamarCifrado(pNuevo));
+	  
+	  if(!(cifrado = llamarCifrado(pNuevo)).equals("(OPERACIÓN NO MOSTRADA)")) {
+		  pContext.put("mensajeCifrado",cifrado);
 		  return;
 	  }
-	}
+	  }
 	//nueva linea
-	else if(llamarDescifrado(pNuevo) != null) {
-	  pContext.put("mensajeDescifrado",llamarDescifrado(pNuevo));
-	  return;
-	}
+	  else if(!(descifrado = llamarDescifrado(pNuevo)).equals("(OPERACIÓN NO MOSTRADA)")) {
+	    pContext.put("mensajeDescifrado",descifrado);
+	    return;
+	  }
 	pContext.put("noNiquette","si");
 
   }

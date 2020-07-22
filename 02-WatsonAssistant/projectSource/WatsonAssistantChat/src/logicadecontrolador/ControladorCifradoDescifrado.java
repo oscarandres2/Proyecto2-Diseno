@@ -7,6 +7,7 @@ import modelo.ICifrado;
 import modelo.Mensaje;
 import patrondecorator.BitacoraDecorator;
 import patrondecorator.SentimientosDecorator;
+import prueba.OperacionUsuario;
 
 
 /**
@@ -19,6 +20,7 @@ public class ControladorCifradoDescifrado {
 	
   private SimpleCifradoFactory factory = new SimpleCifradoFactory();
   private ICifrado strategy;
+  private OperacionUsuario operacion = new OperacionUsuario();
   
   public ControladorCifradoDescifrado() {}
   /**
@@ -40,16 +42,34 @@ public class ControladorCifradoDescifrado {
     IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
     ICifrado cifrado;
 
-    cifrado = new BitacoraDecorator(factory.crearCifradoDescifrado(pTipo, subTipo, parametro));
-    //revisar
-    //cifrado = factory.crearCifradoDescifrado(pTipo, subTipo, parametro);
+    cifrado = factory.crearCifradoDescifrado(pTipo, subTipo, parametro);
     
     return cifrado;
   }
   
+  //metodo nuevo
+  private ICifrado crearCifradoDescifrado(String pTipo, String subTipo, Object parametro,OperacionUsuario operacion) throws InstantiationException,
+  IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	  ICifrado cifrado;
+	
+	  cifrado = new BitacoraDecorator(factory.crearCifradoDescifrado(pTipo, subTipo, parametro),operacion);
+	  
+	  return cifrado;
+	}
+  
   private void asignarStrategy(String pTipo, String pSubTipo, String parametro) {
 	  try {
 		strategy = crearCifradoDescifrado(pTipo, pSubTipo, parametro);
+	} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException
+			| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+		e.printStackTrace();
+	}
+  }
+  
+  // metodo nuevo
+  private void asignarStrategy(String pTipo, String pSubTipo, String parametro,OperacionUsuario operacion) {
+	  try {
+		strategy = crearCifradoDescifrado(pTipo, pSubTipo, parametro,operacion);
 	} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException
 			| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 		e.printStackTrace();
@@ -65,7 +85,14 @@ public class ControladorCifradoDescifrado {
    */
   public String ejecutarCifrado(ArrayList<String> pLista) {
 	Mensaje mensaje = new Mensaje(pLista.get(0));	
-	asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
+	
+	ICifrado validar = new SentimientosDecorator(null,null);
+	
+	//if() {}
+    operacion.agregarDatos("Cifrado", mensaje.getMensajeViejo(), pLista.get(2));
+	
+	//asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
+    asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3),operacion);
 	strategy.cifrar(mensaje);
 	return mensaje.getMensajeCifrado(); 
   }
@@ -80,7 +107,11 @@ public class ControladorCifradoDescifrado {
   public String ejecutarDescifrado(ArrayList<String> pLista) {
 	Mensaje mensaje = new Mensaje(pLista.get(0));
 	mensaje.setMensajeCifrado(pLista.get(0));
-	asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
+	
+    operacion.agregarDatos("Descifrado", mensaje.getMensajeViejo(), pLista.get(2));
+	
+	//asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
+    asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3),operacion);
 	strategy.descifrar(mensaje);
 	return mensaje.getMensajeDescifrado();	
   }

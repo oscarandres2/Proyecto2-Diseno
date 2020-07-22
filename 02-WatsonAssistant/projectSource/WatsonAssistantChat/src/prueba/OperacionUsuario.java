@@ -1,5 +1,9 @@
 package prueba;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import javax.xml.bind.annotation.XmlElement;
 
 public class OperacionUsuario {
 	
@@ -11,7 +15,7 @@ public class OperacionUsuario {
   
   public void agregarDatos(String pTipoAccion,String pTextoOperacion,String pTipoCifradoDescifrado) {
     setTipoAccion(pTipoAccion);
-    setFechaAccion();
+    setFechaAccion(new Date());
     setTextoOperacion(pTextoOperacion);
     setTipoCifradoDescifrado(pTipoCifradoDescifrado); 
   }
@@ -21,19 +25,19 @@ public class OperacionUsuario {
 	return tipoAccion;
    }
 
-
+  @XmlElement
   public void setTipoAccion(String pTipoAccion) {
 	this.tipoAccion = pTipoAccion;
   }
 
 
   public Date getFechaAccion() {
-	return fechaAccion;
+	 return fechaAccion;
   }
 
-
-  public void setFechaAccion() {
-	this.fechaAccion = new Date();
+  @XmlElement
+  public void setFechaAccion(Date date) {
+	 this.fechaAccion = date;
   }
 
 
@@ -41,7 +45,7 @@ public class OperacionUsuario {
 	return textoOperacion;
   }
 
-
+  @XmlElement
   public void setTextoOperacion(String pTextoOperacion) {
 	this.textoOperacion = pTextoOperacion;
   }
@@ -51,7 +55,7 @@ public class OperacionUsuario {
 	return tipoCifradoDescifrado;
   }
 
-
+  @XmlElement
   public void setTipoCifradoDescifrado(String pTipoCifradoDescifrado) {
 	this.tipoCifradoDescifrado = pTipoCifradoDescifrado;
   }

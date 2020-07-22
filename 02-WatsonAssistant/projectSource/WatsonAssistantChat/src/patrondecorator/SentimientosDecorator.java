@@ -17,6 +17,7 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
 import modelo.ICifrado;
 import modelo.Mensaje;
+import prueba.OperacionUsuario;
 
 public class SentimientosDecorator extends CifradoDecorator {
 
@@ -28,8 +29,8 @@ public class SentimientosDecorator extends CifradoDecorator {
 	private IamOptions iAmOptionsTranslator = new IamOptions.Builder().apiKey(apiKeyTranslator).build();
 	private LanguageTranslator service2 = new LanguageTranslator("2018-05-01", iAmOptionsTranslator);
 	
-	public SentimientosDecorator(ICifrado pDecoratedShape) {
-		super(pDecoratedShape);
+	public SentimientosDecorator(ICifrado pDecoratedShape,OperacionUsuario operacion) {
+		super(pDecoratedShape,operacion);
 	}
 	
 	public Mensaje cifrar(Mensaje pMensaje) {
@@ -38,6 +39,7 @@ public class SentimientosDecorator extends CifradoDecorator {
 			pMensaje.setMensajeCifrado(pMensaje.getMensajeCifrado()+".       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeViejo()))));
 			return pMensaje;
 		}
+		pMensaje.setMensajeCifrado("(OPERACIÓN NO MOSTRADA)");
 		return pMensaje;
 	}
 	
@@ -47,7 +49,8 @@ public class SentimientosDecorator extends CifradoDecorator {
 			pMensaje.setMensajeDescifrado(pMensaje.getMensajeDescifrado()+".       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeDescifrado()))));
 			return pMensaje;
 		}
-		pMensaje.setMensajeDescifrado(null);
+		//pMensaje.setMensajeDescifrado(null);
+		pMensaje.setMensajeDescifrado("(OPERACIÓN NO MOSTRADA)");
 		return pMensaje;
 	}
 	
@@ -104,7 +107,7 @@ public class SentimientosDecorator extends CifradoDecorator {
       return textoTraducido;
 	}
 	
-	private boolean isNitequette(String pTexto) {
+	public boolean isNitequette(String pTexto) {
 
         String textoTraducido = traducirTextoEspanolAIngles(pTexto);
 		ArrayList<String> sentimientos = sentimientosEncontrados(textoTraducido);

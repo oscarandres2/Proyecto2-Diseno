@@ -2,13 +2,16 @@ package patrondecorator;
 
 import modelo.ICifrado;
 import modelo.Mensaje;
+import prueba.OperacionUsuario;
 
 public class CifradoDecorator implements ICifrado {
 	
 	protected ICifrado decoratedShape; 
+	protected OperacionUsuario operacion;
 	
-	public CifradoDecorator(ICifrado pDecoratedShape) {
+	public CifradoDecorator(ICifrado pDecoratedShape,OperacionUsuario operacion) {
 		this.decoratedShape = pDecoratedShape;
+		this.operacion = operacion;
 	}
 
 	@Override

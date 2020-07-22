@@ -33,12 +33,10 @@ public class SimpleCifradoFactory {
   public ICifrado crearCifradoDescifrado(String pType, String pSubType,Object pParametro) throws InstantiationException, 
       IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {	
 	ICifrado iCifrado;
-	System.out.println("hola4");
 	if(pSubType == null) {
 	  iCifrado = (ICifrado) Class.forName("modelo."+pType).newInstance();
 	  return iCifrado;
 	}
-	System.out.println("hola5");
 	Constructor construc = Class.forName("modelo."+pType).getConstructor(pParametro.getClass());
 	iCifrado = (ICifrado) construc.newInstance(pParametro);
 	return iCifrado;	
