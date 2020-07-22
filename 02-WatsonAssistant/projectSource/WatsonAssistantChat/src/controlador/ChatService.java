@@ -143,11 +143,7 @@ public class ChatService {
 	  nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
 	  
 	  ejecutarTipoOperacion(tipoOperacion,context,nuevo);
-	   
-	   //System.out.println(UtilBitacora.bitacoraToStringXML(UtilBitacora.leerBitacoraXML()));
-	
-	  
-	  
+
 	}else if(validarMensajeCompleto(terminado,operacionCompleta)){
 
 	   msjcompleto = eliminarFinal(msjcompleto);
@@ -161,7 +157,8 @@ public class ChatService {
 	   validacionFiltro.add(llave);
 	   validacionFiltro.add(numeroEncontrado);	
 	   
-	   System.out.println(validacionFiltro);
+	   System.out.println(terminado);
+	   System.out.println(operacionCompleta);
 	   
 	   nuevo.add(filtarEncontradoTextoCompleto(validacionFiltro));//3
 	   nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
@@ -252,6 +249,11 @@ public class ChatService {
 	return "sin valor";	
   }
   
+  private void resetVariables(Context pContext) {
+	  pContext.put("terminado",null);
+	  pContext.put("operacionCompleta",null);
+  }
+  
   private void ejecutarTipoOperacion(String pTipoOperacion,Context pContext, ArrayList<String> pNuevo) {
 
 	  String cifrado;
@@ -259,18 +261,20 @@ public class ChatService {
 	if(pTipoOperacion.equals("cifrado")) {
 	  //nueva linea
 	  
-	  if(!(cifrado = llamarCifrado(pNuevo)).equals("(OPERACIÓN NO MOSTRADA)")) {
+	  if(!(cifrado = llamarCifrado(pNuevo)).equals("(OPERACIÓN NO REALIZADA)")) {
 		  pContext.put("mensajeCifrado",cifrado);
+		  resetVariables(pContext);
 		  return;
 	  }
-	  }
+	}
 	//nueva linea
-	  else if(!(descifrado = llamarDescifrado(pNuevo)).equals("(OPERACIÓN NO MOSTRADA)")) {
-	    pContext.put("mensajeDescifrado",descifrado);
-	    return;
-	  }
+	else if(!(descifrado = llamarDescifrado(pNuevo)).equals("(OPERACIÓN NO REALIZADA)")) {
+	  pContext.put("mensajeDescifrado",descifrado);
+	  resetVariables(pContext);
+	  return;
+	}
 	pContext.put("noNiquette","si");
-
+	resetVariables(pContext);
   }
 	
   

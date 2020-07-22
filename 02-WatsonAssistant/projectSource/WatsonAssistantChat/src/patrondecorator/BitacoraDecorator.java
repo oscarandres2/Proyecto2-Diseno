@@ -40,7 +40,6 @@ public class BitacoraDecorator extends SentimientosDecorator{
 	
 	private void añadirBitacora(String pTipoAccion, String pTextoOperacion, String pTipoCifradoDescifrado) throws ParserConfigurationException, SAXException, IOException, JAXBException {
 	    UtilBitacora.validarArchivos();  
-	    System.out.println("okaoka");
 //	    Bitacora xml = UtilBitacora.leerBitacoraXML();
 //	    Bitacora csv = UtilBitacora.leerBitacora("csv");
 //	    Bitacora txt = UtilBitacora.leerBitacora("txt");
@@ -55,8 +54,6 @@ public class BitacoraDecorator extends SentimientosDecorator{
 		 csv.agregarOperacionUsuario(operacionUsuario);
 		 txt.agregarOperacionUsuario(operacionUsuario);
 		  
-		  
-		 //UtilBitacora.validarArchivos();
 		 UtilBitacora.crearXML(xml);
 		 UtilBitacora.crearBitacora(csv, "csv");
 		 UtilBitacora.crearBitacora(txt, "txt");

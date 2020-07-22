@@ -36,21 +36,22 @@ public class SentimientosDecorator extends CifradoDecorator {
 	public Mensaje cifrar(Mensaje pMensaje) {
 		if(isNitequette(pMensaje.getMensajeViejo())) {
 			decoratedShape.cifrar(pMensaje);
-			pMensaje.setMensajeCifrado(pMensaje.getMensajeCifrado()+".       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeViejo()))));
+			pMensaje.setMensajeCifrado(pMensaje.getMensajeCifrado()+"..       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeViejo())))+"	..");
 			return pMensaje;
 		}
-		pMensaje.setMensajeCifrado("(OPERACIÓN NO MOSTRADA)");
+		operacion.setTextoOperacion("(OPERACIÓN NO REALIZADA)");
+		pMensaje.setMensajeCifrado("(OPERACIÓN NO REALIZADA)");
 		return pMensaje;
 	}
 	
 	public Mensaje descifrar(Mensaje pMensaje) {
 		if(isNitequette(decoratedShape.descifrar(pMensaje).getMensajeDescifrado())) {
 			decoratedShape.descifrar(pMensaje);
-			pMensaje.setMensajeDescifrado(pMensaje.getMensajeDescifrado()+".       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeDescifrado()))));
+			pMensaje.setMensajeDescifrado(pMensaje.getMensajeDescifrado()+".       ANÁLISIS DE SENTIMIENTOS: "+traducirTextoInglesAEspanol(sentimientosEncontrados(traducirTextoEspanolAIngles(pMensaje.getMensajeDescifrado())))+"	..");
 			return pMensaje;
 		}
-		//pMensaje.setMensajeDescifrado(null);
-		pMensaje.setMensajeDescifrado("(OPERACIÓN NO MOSTRADA)");
+		operacion.setTextoOperacion("(OPERACIÓN NO REALIZADA)");
+		pMensaje.setMensajeDescifrado("(OPERACIÓN NO REALIZADA)");
 		return pMensaje;
 	}
 	
@@ -107,7 +108,7 @@ public class SentimientosDecorator extends CifradoDecorator {
       return textoTraducido;
 	}
 	
-	public boolean isNitequette(String pTexto) {
+	private boolean isNitequette(String pTexto) {
 
         String textoTraducido = traducirTextoEspanolAIngles(pTexto);
 		ArrayList<String> sentimientos = sentimientosEncontrados(textoTraducido);

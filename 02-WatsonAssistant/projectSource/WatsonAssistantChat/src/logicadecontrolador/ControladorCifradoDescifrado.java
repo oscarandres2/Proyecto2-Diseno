@@ -88,7 +88,7 @@ public class ControladorCifradoDescifrado {
 	
 	ICifrado validar = new SentimientosDecorator(null,null);
 	
-	//if() {}
+
     operacion.agregarDatos("Cifrado", mensaje.getMensajeViejo(), pLista.get(2));
 	
 	//asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
