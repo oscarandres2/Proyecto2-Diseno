@@ -1,4 +1,4 @@
-package patrondecorator;
+package logicaestructural;
 
 import java.io.IOException;
 
@@ -7,11 +7,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import logicaaccesodatos.UtilBitacora;
 import modelo.Bitacora;
 import modelo.ICifrado;
 import modelo.Mensaje;
 import modelo.OperacionUsuario;
-import util.UtilBitacora;
 
 public class BitacoraDecorator extends SentimientosDecorator{
 

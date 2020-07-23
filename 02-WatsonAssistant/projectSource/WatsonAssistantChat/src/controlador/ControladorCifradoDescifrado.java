@@ -1,4 +1,4 @@
-package logicadecontroladorREVISAR;
+package controlador;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -8,14 +8,14 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import logicaaccesodatos.UtilBitacora;
 import logicadeinstanciacion.SimpleCifradoFactory;
+import logicaestructural.BitacoraDecorator;
+import logicaestructural.SentimientosDecorator;
 import modelo.Bitacora;
 import modelo.ICifrado;
 import modelo.Mensaje;
 import modelo.OperacionUsuario;
-import patrondecorator.BitacoraDecorator;
-import patrondecorator.SentimientosDecorator;
-import util.UtilBitacora;
 
 
 /**

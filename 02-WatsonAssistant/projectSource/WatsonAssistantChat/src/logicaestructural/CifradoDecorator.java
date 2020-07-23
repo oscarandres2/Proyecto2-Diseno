@@ -1,4 +1,4 @@
-package patrondecorator;
+package logicaestructural;
 
 import modelo.ICifrado;
 import modelo.Mensaje;

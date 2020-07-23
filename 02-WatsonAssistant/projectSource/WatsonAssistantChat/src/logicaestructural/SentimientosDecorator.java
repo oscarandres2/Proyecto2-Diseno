@@ -1,4 +1,4 @@
-package patrondecorator;
+package logicaestructural;
 
 import java.util.ArrayList;
 import java.util.List;
