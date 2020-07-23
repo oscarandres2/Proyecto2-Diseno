@@ -24,15 +24,12 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import logicadecontrolador.ControladorCifradoDescifrado;
-
-
+import modelo.Bitacora;
 import modelo.CSV;
+import modelo.OperacionUsuario;
 import modelo.TramaPlana;
 import modelo.XML;
 import patrondecorator.UtilBitacora;
-import prueba.Bitacora;
-import prueba.OperacionUsuario;
-
 import logicadeinstanciacion.SingletonControlador;
 
 

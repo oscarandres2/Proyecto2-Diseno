@@ -1,4 +1,4 @@
-package prueba;
+package modelo;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,7 +55,7 @@ public ArrayList<OperacionUsuario> operacionesActuales(){
   public ArrayList<OperacionUsuario> operacionesCifrado(){
 	  ArrayList<OperacionUsuario> operacionesCifrado = new ArrayList<OperacionUsuario>();
 	  for(OperacionUsuario operacionUsuario: operacionesUsuario ) {		  
-		  if(operacionUsuario.getTipoAccion() == "cifrado") {
+		  if(operacionUsuario.getTipoAccion().equals("Cifrado")) {
 			  operacionesCifrado.add(operacionUsuario);			  
 		  }		  
 	  }
@@ -64,10 +64,10 @@ public ArrayList<OperacionUsuario> operacionesActuales(){
 	  
   }
   
-  public ArrayList<OperacionUsuario> operacionesdesCifrado(){
+  public ArrayList<OperacionUsuario> operacionesDescifrado(){
 	  ArrayList<OperacionUsuario> operacionesDescifrado = new ArrayList<OperacionUsuario>();
 	  for(OperacionUsuario operacionUsuario: operacionesUsuario ) {		  
-		  if(operacionUsuario.getTipoAccion() == "descifrado") {
+		  if(operacionUsuario.getTipoAccion().equals("Descifrado")) {
 			  operacionesDescifrado.add(operacionUsuario);			  
 		  }		  
 	  }

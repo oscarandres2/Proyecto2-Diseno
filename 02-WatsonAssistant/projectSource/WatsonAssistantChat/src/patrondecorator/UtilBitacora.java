@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
@@ -18,13 +19,13 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import prueba.Bitacora;
-import prueba.OperacionUsuario;
+import modelo.Bitacora;
+import modelo.OperacionUsuario;
 
 public class UtilBitacora {
 	
-  //private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
-  private static String path = "C:\\Users\\danqp\\Desktop\\bitacoras\\bitacora";
+  private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
+  //private static String path = "C:\\Users\\danqp\\Desktop\\bitacoras\\bitacora";
 
   
   public static void validarArchivos() throws JAXBException, IOException {
@@ -166,17 +167,49 @@ public class UtilBitacora {
     String linea = "";
      while((linea = buffered.readLine())!= null) {
        String[] resultado = linea.split(pTipoSeparador) ;
-       
        OperacionUsuario operacionUsuario = new OperacionUsuario();
        operacionUsuario.agregarDatos(resultado[1], resultado[2], resultado[3]);
-       operacionUsuario.setFechaAccion(new Date());
-       
+       operacionUsuario.setFechaAccion(new Date(resultado[0]));
        bitacora.agregarOperacionUsuario(operacionUsuario);
     	 
      }
      buffered.close();
      return bitacora;
     
+  }
+  
+  
+  public static ArrayList<OperacionUsuario> determinarCriterioBitacora(String pCriterioBitacora,Bitacora pBitacora){
+	if(pCriterioBitacora.equals("registros de hoy")) {
+	  return pBitacora.operacionesActuales();	
+	}
+	if(pCriterioBitacora.equals("registros codificacion")) {
+		  return pBitacora.operacionesCifrado();	
+	}
+    if(pCriterioBitacora.equals("registros descodificacion")) {
+        return pBitacora.operacionesDescifrado();
+    }
+    else {
+        return pBitacora.getOperacionesUsuario();
+    }	  
+	  
+  }
+  
+  public static Bitacora determinarFuenteBitacora(String pFuenteBitacora) throws IOException, ParserConfigurationException, SAXException, JAXBException{
+    if(pFuenteBitacora.equals("csv")) {
+    	System.out.println("1");
+      return UtilBitacora.leerBitacora("csv");
+    } 
+    if(pFuenteBitacora.equals("txt")) {
+      return UtilBitacora.leerBitacora("txt");
+    } else {
+    	System.out.println("3");
+    	return UtilBitacora.leerBitacoraXML();
+    }
+    /*if(pFuenteBitacora.equals("xml")){
+        return UtilBitacora.leerBitacoraXML();
+    	
+      }*/
   }
   
   

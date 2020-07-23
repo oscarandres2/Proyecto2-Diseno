@@ -17,7 +17,7 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
 import modelo.ICifrado;
 import modelo.Mensaje;
-import prueba.OperacionUsuario;
+import modelo.OperacionUsuario;
 
 public class SentimientosDecorator extends CifradoDecorator {
 

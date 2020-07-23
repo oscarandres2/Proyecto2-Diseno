@@ -1,6 +1,4 @@
-package prueba;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+package modelo;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;

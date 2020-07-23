@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import logicadeinstanciacion.SimpleCifradoFactory;
 import modelo.ICifrado;
 import modelo.Mensaje;
+import modelo.OperacionUsuario;
 import patrondecorator.BitacoraDecorator;
 import patrondecorator.SentimientosDecorator;
-import prueba.OperacionUsuario;
 
 
 /**

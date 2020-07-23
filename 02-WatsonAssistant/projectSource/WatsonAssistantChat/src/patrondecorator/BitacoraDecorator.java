@@ -7,10 +7,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import modelo.Bitacora;
 import modelo.ICifrado;
 import modelo.Mensaje;
-import prueba.Bitacora;
-import prueba.OperacionUsuario;
+import modelo.OperacionUsuario;
 
 public class BitacoraDecorator extends SentimientosDecorator{
 

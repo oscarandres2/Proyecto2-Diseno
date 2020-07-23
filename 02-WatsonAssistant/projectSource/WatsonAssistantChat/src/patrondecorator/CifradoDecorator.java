@@ -2,7 +2,7 @@ package patrondecorator;
 
 import modelo.ICifrado;
 import modelo.Mensaje;
-import prueba.OperacionUsuario;
+import modelo.OperacionUsuario;
 
 public class CifradoDecorator implements ICifrado {
 	
