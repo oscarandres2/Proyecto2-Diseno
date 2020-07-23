@@ -1,6 +1,6 @@
 package logicadeinstanciacion;
 
-import logicadecontrolador.ControladorCifradoDescifrado;
+import logicadecontroladorREVISAR.ControladorCifradoDescifrado;
 
 public class SingletonControlador {
 

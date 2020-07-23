@@ -11,6 +11,7 @@ import modelo.Bitacora;
 import modelo.ICifrado;
 import modelo.Mensaje;
 import modelo.OperacionUsuario;
+import util.UtilBitacora;
 
 public class BitacoraDecorator extends SentimientosDecorator{
 

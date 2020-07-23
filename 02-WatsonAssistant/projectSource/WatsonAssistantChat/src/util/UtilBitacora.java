@@ -1,27 +1,28 @@
-package patrondecorator;
+package util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.xml.sax.SAXException;
-
 import modelo.Bitacora;
 import modelo.OperacionUsuario;
 
+
+/**
+ * Clase utilitaria de bitácora 
+ * con los métodos y atributos necesarios.
+ * @author Oscar y Daniel
+ */
 public class UtilBitacora {
 	
   private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
@@ -67,7 +68,6 @@ public class UtilBitacora {
 	    file.append(operacionUsuario.getTipoCifradoDescifrado());
 	    file.append(pTipoSeparador);
 	    file.append("\n");
-		  
 	  }
 	  
 	  file.flush();
@@ -77,7 +77,7 @@ public class UtilBitacora {
   
   //arreglaaar
   
-  protected static void crearBitacora(Bitacora pBitacora, String pTipoArchivo) throws IOException {
+  public static void crearBitacora(Bitacora pBitacora, String pTipoArchivo) throws IOException {
 	if(pTipoArchivo.equals("txt")) {
 	  	crearBitacora(pBitacora, "\t", pTipoArchivo);
 	} else {
@@ -85,7 +85,7 @@ public class UtilBitacora {
 	} 
 	 
   }
-  protected static void crearXML(Bitacora pBitacoraXML) throws JAXBException {
+  public static void crearXML(Bitacora pBitacoraXML) throws JAXBException {
 	    File file = new File(path+".xml");
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Bitacora.class);
 
@@ -97,7 +97,7 @@ public class UtilBitacora {
 
 	  }
   
-  protected static Bitacora leerBitacoraXML() throws ParserConfigurationException, SAXException, IOException, JAXBException{
+  public static Bitacora leerBitacoraXML() throws ParserConfigurationException, SAXException, IOException, JAXBException{
 
     File file = new File(path+".xml");
     JAXBContext jaxbContext = JAXBContext.newInstance(Bitacora.class);
@@ -110,7 +110,7 @@ public class UtilBitacora {
 
   }
   
-  protected static String bitacoraToStringXML(Bitacora pBitacoraXML) throws JAXBException {
+  public static String bitacoraToStringXML(Bitacora pBitacoraXML) throws JAXBException {
 
     JAXBContext jaxbContext = JAXBContext.newInstance(Bitacora.class);
 
@@ -125,7 +125,7 @@ public class UtilBitacora {
   }
   
   
-  protected static String leerBitacora(Bitacora pBitacora,String pTipoArchivo) {
+  public static String leerBitacora(Bitacora pBitacora,String pTipoArchivo) {
     if(pTipoArchivo.equals("txt")) {
       return bitacoraToString(pBitacora,"\t");
     } else {
@@ -133,7 +133,7 @@ public class UtilBitacora {
     }
 	  
   }
-  private static String bitacoraToString(Bitacora pBitacora, String pTipoSeparador) {
+  public static String bitacoraToString(Bitacora pBitacora, String pTipoSeparador) {
 	String resultado = "";
 	
 	for(OperacionUsuario operacionUsuario: pBitacora.getOperacionesUsuario()){
@@ -161,7 +161,7 @@ public class UtilBitacora {
 	  
   }
   
-  private static Bitacora leerInformacionBitacora(String pTipoArchivo,String pTipoSeparador) throws IOException {
+  public static Bitacora leerInformacionBitacora(String pTipoArchivo,String pTipoSeparador) throws IOException {
     BufferedReader buffered = new BufferedReader(new FileReader(path+"."+pTipoArchivo));
     Bitacora bitacora = new Bitacora();
     String linea = "";
@@ -197,19 +197,13 @@ public class UtilBitacora {
   
   public static Bitacora determinarFuenteBitacora(String pFuenteBitacora) throws IOException, ParserConfigurationException, SAXException, JAXBException{
     if(pFuenteBitacora.equals("csv")) {
-    	System.out.println("1");
       return UtilBitacora.leerBitacora("csv");
     } 
     if(pFuenteBitacora.equals("txt")) {
       return UtilBitacora.leerBitacora("txt");
     } else {
-    	System.out.println("3");
     	return UtilBitacora.leerBitacoraXML();
     }
-    /*if(pFuenteBitacora.equals("xml")){
-        return UtilBitacora.leerBitacoraXML();
-    	
-      }*/
   }
   
   

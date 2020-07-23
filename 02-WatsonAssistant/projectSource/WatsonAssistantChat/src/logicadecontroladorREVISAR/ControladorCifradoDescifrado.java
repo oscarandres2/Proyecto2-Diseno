@@ -1,13 +1,21 @@
-package logicadecontrolador;
+package logicadecontroladorREVISAR;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import logicadeinstanciacion.SimpleCifradoFactory;
+import modelo.Bitacora;
 import modelo.ICifrado;
 import modelo.Mensaje;
 import modelo.OperacionUsuario;
 import patrondecorator.BitacoraDecorator;
 import patrondecorator.SentimientosDecorator;
+import util.UtilBitacora;
 
 
 /**
@@ -95,6 +103,8 @@ public class ControladorCifradoDescifrado {
   }
   
   
+  
+  
   /**
    * Método que permite ejecutar 
    * el descifrado.
@@ -112,5 +122,26 @@ public class ControladorCifradoDescifrado {
 	strategy.descifrar(mensaje);
 	return mensaje.getMensajeDescifrado();	
   }
+  
+  /**
+   * Determina el tipo de fuente y criterio,
+   * posteriormente muestra la información.
+   * @param pTipoCriterio
+   * @param pTipoFuente
+   * @return
+ * @throws JAXBException 
+ * @throws SAXException 
+ * @throws ParserConfigurationException 
+ * @throws IOException 
+   */
+  public String mostrarFuenteTipoCriterio(String pTipoCriterio, String pTipoFuente) throws IOException, ParserConfigurationException, SAXException, JAXBException {
+	  Bitacora bitacora = UtilBitacora.determinarFuenteBitacora(pTipoFuente);
+		bitacora.operacionesUsuario = UtilBitacora.determinarCriterioBitacora(pTipoCriterio, bitacora);
+		if(pTipoFuente.equals("xml")) {
+		  return UtilBitacora.bitacoraToStringXML(bitacora);	
+		} 
+		return UtilBitacora.leerBitacora(bitacora,pTipoFuente);
+		
+  }	
 
 }

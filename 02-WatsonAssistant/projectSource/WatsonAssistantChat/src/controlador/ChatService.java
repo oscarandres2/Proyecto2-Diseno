@@ -13,26 +13,15 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
-
 import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
 import com.ibm.watson.developer_cloud.assistant.v1.model.Context;
 import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
-import logicadecontrolador.ControladorCifradoDescifrado;
-import modelo.Bitacora;
-import modelo.CSV;
-import modelo.OperacionUsuario;
-import modelo.TramaPlana;
-import modelo.XML;
-import patrondecorator.UtilBitacora;
 import logicadeinstanciacion.SingletonControlador;
-
-
 
 
 
@@ -170,9 +159,6 @@ public class ChatService {
 	 return Response.status(Status.OK).entity(object.toString()).build();
   }
 	
-  private String mostrarFuenteTipoCriterio(String tipoCriterio, String tipoFuente) {
-	  return "";
-  }	
 	
 	//nuevo
   private boolean validarUsuario(String admin, String contra) {
@@ -371,6 +357,11 @@ public class ChatService {
   
   private String llamarDescifrado(ArrayList<String> pLista)  {	
 	return SingletonControlador.getInstance().ejecutarDescifrado(pLista);
+  }
+  
+  
+  private String mostrarFuenteTipoCriterio(String pTipoCriterio, String pTipoFuente) throws IOException, ParserConfigurationException, SAXException, JAXBException {
+	  return SingletonControlador.getInstance().mostrarFuenteTipoCriterio(pTipoCriterio, pTipoFuente);	  
   }
 
 		
