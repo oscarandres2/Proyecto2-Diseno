@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.*;
 public class Bitacora {
 
   @XmlElement(name = "operacionUsuario")
-  public ArrayList<OperacionUsuario> operacionesUsuario;
+  private ArrayList<OperacionUsuario> operacionesUsuario;
 
   
   public Bitacora() {
@@ -23,6 +23,10 @@ public class Bitacora {
   
   public ArrayList<OperacionUsuario> getOperacionesUsuario() {
 	  return operacionesUsuario;	  
+  }
+  
+  public void setOperacionesUsuario(ArrayList<OperacionUsuario> pOperaciones) {
+	  operacionesUsuario = pOperaciones;	  
   }
   
 

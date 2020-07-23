@@ -136,7 +136,7 @@ public class ControladorCifradoDescifrado {
    */
   public String mostrarFuenteTipoCriterio(String pTipoCriterio, String pTipoFuente) throws IOException, ParserConfigurationException, SAXException, JAXBException {
 	  Bitacora bitacora = UtilBitacora.determinarFuenteBitacora(pTipoFuente);
-		bitacora.operacionesUsuario = UtilBitacora.determinarCriterioBitacora(pTipoCriterio, bitacora);
+		bitacora.setOperacionesUsuario(UtilBitacora.determinarCriterioBitacora(pTipoCriterio, bitacora));
 		if(pTipoFuente.equals("xml")) {
 		  return UtilBitacora.bitacoraToStringXML(bitacora);	
 		} 
