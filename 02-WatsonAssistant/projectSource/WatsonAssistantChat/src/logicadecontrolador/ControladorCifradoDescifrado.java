@@ -85,9 +85,6 @@ public class ControladorCifradoDescifrado {
    */
   public String ejecutarCifrado(ArrayList<String> pLista) {
 	Mensaje mensaje = new Mensaje(pLista.get(0));	
-	
-	ICifrado validar = new SentimientosDecorator(null,null);
-	
 
     operacion.agregarDatos("Cifrado", mensaje.getMensajeViejo(), pLista.get(2));
 	
