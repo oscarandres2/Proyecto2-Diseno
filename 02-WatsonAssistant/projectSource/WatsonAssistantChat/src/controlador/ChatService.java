@@ -121,7 +121,7 @@ public class ChatService {
 			moduloAdministradorTerminado = buscarModuloAdminTerminado(assistantResponse);
 			if(moduloAdministradorTerminado != null) {
 				tipoCriterio = buscarTipoCriterio(assistantResponse);
-				//context.put("historial",mostrarConTipoCriterio(tipoCriterio,fuenteBitacora));
+				context.put("historial",mostrarFuenteTipoCriterio(tipoCriterio,fuenteBitacora));
 			}
 			
 		}
@@ -173,7 +173,7 @@ public class ChatService {
 	 return Response.status(Status.OK).entity(object.toString()).build();
   }
 	
-  private String mostrarConTipoCriterio(String tipoCriterio, String tipoFuente) {
+  private String mostrarFuenteTipoCriterio(String tipoCriterio, String tipoFuente) {
 	  return "";
   }	
 	
