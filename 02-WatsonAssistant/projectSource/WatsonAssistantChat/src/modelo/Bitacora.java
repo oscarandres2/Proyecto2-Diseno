@@ -25,30 +25,27 @@ public class Bitacora {
 	  return operacionesUsuario;	  
   }
   
+
   
-  
-//  public ArrayList<OperacionUsuario> totalOperaciones(){
-//    ArrayList<OperacionUsuario> operacionesTotales = new ArrayList<OperacionUsuario>(); 
-//    for(OperacionUsuario operacionUsuario : operacionesUsuario) {
-//    	operacionesTotales.add(operacionUsuario);    	
-//    }
-//    return operacionesTotales;
-//	  
-//  }
-  
-  
-  @SuppressWarnings("deprecation")
-public ArrayList<OperacionUsuario> operacionesActuales(){
+  public ArrayList<OperacionUsuario> operacionesActuales(){
 	  ArrayList<OperacionUsuario> operacionesActuales = new ArrayList<OperacionUsuario>();
 	  Date fechaActual = new Date();
 	  for(OperacionUsuario operacionUsuario : operacionesUsuario) {
 		  
-		if(operacionUsuario.getFechaAccion().getDate() ==  fechaActual.getDate() 
-		  & operacionUsuario.getFechaAccion().getMonth() == fechaActual.getMonth()) {
+		if(validarFechas(operacionesActuales,operacionUsuario,fechaActual)) {
 			operacionesActuales.add(operacionUsuario);			
 		}  
 	  }
 	  return operacionesActuales;
+  }
+
+  @SuppressWarnings("deprecation")
+  private boolean validarFechas(ArrayList<OperacionUsuario> operacionesActuales, OperacionUsuario operacionUsuario, Date fechaActual) {
+	  if(operacionUsuario.getFechaAccion().getDate() ==  fechaActual.getDate() 
+			  & operacionUsuario.getFechaAccion().getMonth() == fechaActual.getMonth()) {
+		return true;
+	  }
+	  return false;
   }
   
   

@@ -25,12 +25,11 @@ import modelo.OperacionUsuario;
  */
 public class UtilBitacora {
 	
-  private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
-  //private static String path = "C:\\Users\\danqp\\Desktop\\bitacoras\\bitacora";
+  //private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
+  private static String path = "C:\\Users\\danqp\\Desktop\\bitacoras\\bitacora";
 
   
   public static void validarArchivos() throws JAXBException, IOException {
-	System.out.println(path);
     File xml = new File(path+".xml");
     File csv = new File(path+".csv");
     File txt = new File(path+".txt");
@@ -38,16 +37,12 @@ public class UtilBitacora {
     Bitacora bitacora = new Bitacora();
     
     if(!xml.exists()) {
-    	System.out.println("entro");
-
       crearXML(bitacora);
     }
     if(!csv.exists()) {
-    	System.out.println("buenas");
       crearBitacora(bitacora, "csv");	
     }
     if(!txt.exists()) {
-    	System.out.println("buenas");
 	  crearBitacora(bitacora, "txt");		
     }
 	  
@@ -57,7 +52,6 @@ public class UtilBitacora {
   //cammbioooos
   private static void crearBitacora(Bitacora pBitacora,String pTipoSeparador, String pTipoArchivo) throws IOException {
 	  FileWriter file= new FileWriter(path+"."+pTipoArchivo,true);  
-	  System.out.println(pBitacora.operacionesUsuario.size());
 	  for(OperacionUsuario operacionUsuario: pBitacora.getOperacionesUsuario() ) {
 		  file.append(operacionUsuario.getFechaAccion().toString());
 		  file.append(pTipoSeparador);
@@ -80,9 +74,9 @@ public class UtilBitacora {
   public static void crearBitacora(Bitacora pBitacora, String pTipoArchivo) throws IOException {
 	if(pTipoArchivo.equals("txt")) {
 	  	crearBitacora(pBitacora, "\t", pTipoArchivo);
-	} else {
-	    crearBitacora(pBitacora, ",", pTipoArchivo);
-	} 
+	  	return;
+	}
+	crearBitacora(pBitacora, ",", pTipoArchivo);
 	 
   }
   public static void crearXML(Bitacora pBitacoraXML) throws JAXBException {
@@ -92,7 +86,6 @@ public class UtilBitacora {
 	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-	    //System.out.println(pBitacoraXML.toString());
 	    jaxbMarshaller.marshal(pBitacoraXML, file);// this line create customer.xml file in specified path.
 
 	  }
@@ -105,7 +98,6 @@ public class UtilBitacora {
     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
     Bitacora bitacora = (Bitacora) jaxbUnmarshaller.unmarshal(file);
 
-    System.out.println(bitacora.toString());
     return bitacora;
 
   }
@@ -126,11 +118,10 @@ public class UtilBitacora {
   
   
   public static String leerBitacora(Bitacora pBitacora,String pTipoArchivo) {
-    if(pTipoArchivo.equals("txt")) {
+	if(pTipoArchivo.equals("txt")) {
       return bitacoraToString(pBitacora,"\t");
-    } else {
-       return bitacoraToString(pBitacora, ",");
     }
+    return bitacoraToString(pBitacora, ",");
 	  
   }
   public static String bitacoraToString(Bitacora pBitacora, String pTipoSeparador) {
@@ -155,9 +146,8 @@ public class UtilBitacora {
   protected static Bitacora leerBitacora(String pTipoArchivo) throws IOException {
 	if(pTipoArchivo.equals("csv")) {
 		return leerInformacionBitacora("csv", ",");
-	} else {
-		return leerInformacionBitacora("txt", "\t");
-	} 
+	}
+	return leerInformacionBitacora("txt", "\t"); 
 	  
   }
   
@@ -180,30 +170,30 @@ public class UtilBitacora {
   
   
   public static ArrayList<OperacionUsuario> determinarCriterioBitacora(String pCriterioBitacora,Bitacora pBitacora){
+
 	if(pCriterioBitacora.equals("registros de hoy")) {
 	  return pBitacora.operacionesActuales();	
 	}
-	if(pCriterioBitacora.equals("registros codificacion")) {
+	else if(pCriterioBitacora.equals("registros codificacion")) {
 		  return pBitacora.operacionesCifrado();	
 	}
-    if(pCriterioBitacora.equals("registros descodificacion")) {
+	else if(pCriterioBitacora.equals("registros descodificacion")) {
         return pBitacora.operacionesDescifrado();
     }
-    else {
-        return pBitacora.getOperacionesUsuario();
-    }	  
+    return pBitacora.getOperacionesUsuario();
+    
 	  
   }
   
   public static Bitacora determinarFuenteBitacora(String pFuenteBitacora) throws IOException, ParserConfigurationException, SAXException, JAXBException{
-    if(pFuenteBitacora.equals("csv")) {
+	if(pFuenteBitacora.equals("csv")) {
       return UtilBitacora.leerBitacora("csv");
     } 
-    if(pFuenteBitacora.equals("txt")) {
+	else if(pFuenteBitacora.equals("txt")) {
       return UtilBitacora.leerBitacora("txt");
-    } else {
-    	return UtilBitacora.leerBitacoraXML();
     }
+	return UtilBitacora.leerBitacoraXML();
+    
   }
   
   

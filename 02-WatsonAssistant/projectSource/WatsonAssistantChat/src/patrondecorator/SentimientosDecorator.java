@@ -75,7 +75,6 @@ public class SentimientosDecorator extends CifradoDecorator {
 		    
 		}catch(Exception e) {
 		}
-		System.out.println(sentimientos);
 		return sentimientos;
 	}
 	

@@ -22,6 +22,7 @@ import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import logicadeinstanciacion.SingletonControlador;
+import modelo.Administrador;
 
 
 
@@ -35,9 +36,8 @@ import logicadeinstanciacion.SingletonControlador;
  */
 public class ChatService {
 
-  private String administrativo = "daniel";
-  private String contraAdmin = "123";
-  
+  private Administrador administrador = new Administrador("daniel","123");
+
   private String apiKey = "fOXpM_sJMpW1iEu8GiLFj_ygAfRYdCDZREb2fKoWBDOF";
   private String assistantURL = "https://api.us-south.assistant.watson.cloud.ibm.com/instances/71acf5a8-b786-4a4e-968d-058d5044dc80" ;
   private static String workspaceId = "1d5f5b30-5cca-4c72-b694-8cdbc3bbe978";
@@ -92,6 +92,7 @@ public class ChatService {
 	String moduloAdministradorTerminado = (String) context.get("moduloAdministradorTerminado");
 	String tipoCriterio = (String) context.get("tipoCriterio");
 	String fuenteBitacora = (String) context.get("fuenteBitacora");
+
 	//nuevo
 	
 	ArrayList<String> nuevo = new ArrayList<String>();
@@ -100,13 +101,16 @@ public class ChatService {
 	//nuevo
 	if(moduloAdministrador != null) {
 
-		contrasena = obetenerContraAdmin(assistantResponse);
-		if(usuario != null && contrasena != null && validarUsuario(usuario,contrasena)) {
-			context.put("usuarioValidado","si");
+		contrasena = obtenerContraAdmin(assistantResponse);
 
+		if(validacionUsuarioContrasena(usuario,contrasena)) {
+			context.put("usuarioValidado","si");
+			
 			moduloAdministradorTerminado = buscarModuloAdminTerminado(assistantResponse);
 			if(moduloAdministradorTerminado != null) {
-				tipoCriterio = buscarTipoCriterio(assistantResponse);
+				fuenteBitacora = obtenerFuente(assistantResponse);
+				tipoCriterio = obtenerCriterio(assistantResponse);
+
 				context.put("historial",mostrarFuenteTipoCriterio(tipoCriterio,fuenteBitacora));
 			}
 			
@@ -139,12 +143,8 @@ public class ChatService {
 	   String numeroEncontrado = mensaje.replaceAll("\\D+","");	
 	   //añade al array para validar el tipo de sustitucion
 	   
-	  
 	   validacionFiltro.add(llave);
 	   validacionFiltro.add(numeroEncontrado);	
-	   
-	   System.out.println(terminado);
-	   System.out.println(operacionCompleta);
 	   
 	   nuevo.add(filtarEncontradoTextoCompleto(validacionFiltro));//3
 	   nuevo.add(obtenerCorreo(assistantResponse.toString()));//4 correo
@@ -161,8 +161,8 @@ public class ChatService {
 	
 	
 	//nuevo
-  private boolean validarUsuario(String admin, String contra) {
-	  if(admin.equals(administrativo) && contra.equals(contraAdmin)) {
+  private boolean validarUsuario(String pAdministrador, String pContrasena) {
+	  if(pAdministrador.equals(administrador.getNombre()) && pContrasena.equals(administrador.getContrasena())) {
 		  return true;
 	  }
 	  return false;
@@ -170,6 +170,35 @@ public class ChatService {
 
 	//nuevo
 	
+  private String obtenerFuente(MessageResponse assistantResponse) {
+	  try {
+	    JSONObject obj = new JSONObject(assistantResponse);
+	    String fuente = obj.getJSONObject("context").getString("fuenteBitacora");
+	    return fuente;
+	  } catch(Exception e) {
+		  return null;
+	  }
+	  
+  }
+  
+  private String obtenerCriterio(MessageResponse assistantResponse) {
+	  try {
+	    JSONObject obj = new JSONObject(assistantResponse);
+	    String fuente = obj.getJSONObject("context").getString("tipoCriterio");
+	    return fuente;
+	  } catch(Exception e) {
+		  return null;
+	  }
+	  
+  }
+  
+  private boolean validacionUsuarioContrasena(String usuario, String contrasena) {
+	  if(usuario != null && contrasena != null && validarUsuario(usuario,contrasena)) {
+		  return true;
+	  }
+	  return false;
+  }
+  
   private String obtenerCorreo(String response) {
 	  try {
 	    JSONObject obj = new JSONObject(response);
@@ -192,17 +221,7 @@ public class ChatService {
 	  
   }
   
-  private String buscarTipoCriterio(MessageResponse assistantResponse) {
-	  try {
-	    JSONObject obj = new JSONObject(assistantResponse);
-	    String correo = obj.getJSONObject("context").getString("tipoCriterio");
-	    return correo;
-	  } catch(Exception e) {
-		  return null;
-	  }
-  }
-  
-  private String obetenerContraAdmin(MessageResponse assistantResponse) {
+  private String obtenerContraAdmin(MessageResponse assistantResponse) {
 	  try {
 	    JSONObject obj = new JSONObject(assistantResponse);
 	    String correo = obj.getJSONObject("context").getString("contrasena");
@@ -361,6 +380,8 @@ public class ChatService {
   
   
   private String mostrarFuenteTipoCriterio(String pTipoCriterio, String pTipoFuente) throws IOException, ParserConfigurationException, SAXException, JAXBException {
+	  System.out.println(pTipoFuente);
+	  System.out.println(pTipoCriterio);
 	  return SingletonControlador.getInstance().mostrarFuenteTipoCriterio(pTipoCriterio, pTipoFuente);	  
   }
 
