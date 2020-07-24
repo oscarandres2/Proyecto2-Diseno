@@ -26,8 +26,8 @@ import modelo.OperacionUsuario;
  */
 public class UtilBitacora {
 	
-  private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
-  //private static String path = "C:\\Users\\danqp\\Desktop\\bitacoras\\bitacora";
+  //private static String path = "C:\\Users\\Oscar\\OneDrive\\Escritorio\\bitacoras\\bitacora";
+  private static String path = "C:\\Users\\danqp\\Desktop\\bitacoras\\bitacora";
 
   /**
    * Permite validar si existen los archivos de la
