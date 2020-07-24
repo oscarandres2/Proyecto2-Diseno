@@ -118,9 +118,9 @@ public class SentimientosDecorator extends CifradoDecorator {
 		return false;
 	}
 	
-	private boolean validarSentimientos(ArrayList<String> sentimientos) {
-		if(!sentimientos.isEmpty()) {
-			for(String sentimiento: sentimientos) {
+	private boolean validarSentimientos(ArrayList<String> pSentimientos) {
+		if(!pSentimientos.isEmpty()) {
+			for(String sentimiento: pSentimientos) {
 				if(sentimiento.equals("Anger")) {
 					return false;
 				}
