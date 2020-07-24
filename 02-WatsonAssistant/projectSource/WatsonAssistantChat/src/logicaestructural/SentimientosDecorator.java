@@ -29,8 +29,8 @@ public class SentimientosDecorator extends CifradoDecorator {
 	private IamOptions iAmOptionsTranslator = new IamOptions.Builder().apiKey(apiKeyTranslator).build();
 	private LanguageTranslator service2 = new LanguageTranslator("2018-05-01", iAmOptionsTranslator);
 	
-	public SentimientosDecorator(ICifrado pDecoratedShape,OperacionUsuario operacion) {
-		super(pDecoratedShape,operacion);
+	public SentimientosDecorator(ICifrado pDecoratedShape,OperacionUsuario pOperacion) {
+		super(pDecoratedShape,pOperacion);
 	}
 	
 	public Mensaje cifrar(Mensaje pMensaje) {
