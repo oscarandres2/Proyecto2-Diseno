@@ -47,7 +47,7 @@ public class Bitacora {
 	ArrayList<OperacionUsuario> operacionesActuales = new ArrayList<OperacionUsuario>();
 	Date fechaActual = new Date();
 	for(OperacionUsuario operacionUsuario : operacionesUsuario) {	  
-	  if(validarFechas(operacionesActuales,operacionUsuario,fechaActual)) {
+	  if(validarFechas(operacionUsuario,fechaActual)) {
 		operacionesActuales.add(operacionUsuario);			
 	  }  
 	 }
@@ -55,7 +55,7 @@ public class Bitacora {
   }
 
   @SuppressWarnings("deprecation")
-  private boolean validarFechas(ArrayList<OperacionUsuario> operacionesActuales, OperacionUsuario pOperacionUsuario, Date pFechaActual) {
+  private boolean validarFechas( OperacionUsuario pOperacionUsuario, Date pFechaActual) {
 	if(pOperacionUsuario.getFechaAccion().getDate() ==  pFechaActual.getDate() 
 	  & pOperacionUsuario.getFechaAccion().getMonth() == pFechaActual.getMonth()) {
 	    return true;
