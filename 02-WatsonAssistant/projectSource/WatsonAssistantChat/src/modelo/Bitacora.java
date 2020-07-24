@@ -105,6 +105,7 @@ public class Bitacora {
 	  resultado += "\nTipo operación : " +  operacionUsuario.getTipoAccion();
 	  resultado += "\nTexto original : "+operacionUsuario.getTextoOperacion();
 	  resultado += "\nSubtipo: " + operacionUsuario.getTipoCifradoDescifrado();
+		
 	}
 	return resultado;  
   }
