@@ -49,22 +49,22 @@ public class ChatService {
 	}
   }
 	
- /**
-  * Método que recibe la respuesta del servidor
-  * de Watson establece las variables necesarias.
-  * @param conversationMsg
-  * @param conversationCtx
-  * @return
-  * @throws InstantiationException
-  * @throws IllegalAccessException
-  * @throws ClassNotFoundException
-  * @throws JAXBException 
-  * @throws IOException 
-  * @throws SAXException 
-  * @throws ParserConfigurationException 
-  */
-  @GET
-  @Produces("application/json")
+	/**
+	 * Método que recibe la respuesta del servidor
+	 * de Watson establece las variables necesarias.
+	 * @param conversationMsg
+	 * @param conversationCtx
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws JAXBException 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws ParserConfigurationException 
+	 */
+	@GET
+	@Produces("application/json")
   public Response getResponse(@QueryParam("conversationMsg") String conversationMsg, @QueryParam("conversationCtx") 
     String conversationCtx) throws InstantiationException, IllegalAccessException, ClassNotFoundException, ParserConfigurationException, 
     SAXException, IOException, JAXBException {	
