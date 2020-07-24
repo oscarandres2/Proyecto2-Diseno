@@ -88,8 +88,5 @@ public class Bitacora {
 	return resultado;
 	  
   }
-	  
-	  
-  
-  
+
 }
