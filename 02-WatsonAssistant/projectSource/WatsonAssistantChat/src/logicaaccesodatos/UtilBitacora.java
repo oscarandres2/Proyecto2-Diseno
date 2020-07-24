@@ -143,7 +143,7 @@ public class UtilBitacora {
   }
   
   
-  public static Bitacora leerBitacora(String pTipoArchivo) throws IOException {
+  protected static Bitacora leerBitacora(String pTipoArchivo) throws IOException {
 	if(pTipoArchivo.equals("csv")) {
 		return leerInformacionBitacora("csv", ",");
 	}
