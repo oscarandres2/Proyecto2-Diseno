@@ -42,8 +42,6 @@ public class BitacoraDecorator extends SentimientosDecorator{
 	
   }
 		
-  
-	
 
   /**
    * Permite la operación de 
