@@ -5,9 +5,9 @@ public class Administrador {
 	private String nombre;
 	private String contrasena;
 	
-	public Administrador(String pNombre,String pContrasena) {
-		this.nombre = pNombre;
-		this.contrasena = pContrasena;
+	public Administrador(String nombre,String contrasena) {
+		this.nombre = nombre;
+		this.contrasena = contrasena;
 	}
 	
 	public String getNombre() {

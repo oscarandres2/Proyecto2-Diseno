@@ -1,4 +1,4 @@
-package vista;
+package logicadevista;
 
 public class Vista {
 

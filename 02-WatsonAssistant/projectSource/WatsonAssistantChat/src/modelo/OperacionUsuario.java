@@ -34,8 +34,8 @@ public class OperacionUsuario {
   }
 
   @XmlElement
-  public void setFechaAccion(Date pDate) {
-	 this.fechaAccion = pDate;
+  public void setFechaAccion(Date date) {
+	 this.fechaAccion = date;
   }
 
 

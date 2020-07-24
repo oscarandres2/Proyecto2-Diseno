@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.*;
 public class Bitacora {
 
   @XmlElement(name = "operacionUsuario")
-  private ArrayList<OperacionUsuario> operacionesUsuario;
+  public ArrayList<OperacionUsuario> operacionesUsuario;
 
   
   public Bitacora() {
@@ -23,10 +23,6 @@ public class Bitacora {
   
   public ArrayList<OperacionUsuario> getOperacionesUsuario() {
 	  return operacionesUsuario;	  
-  }
-  
-  public void setOperacionesUsuario(ArrayList<OperacionUsuario> pOperaciones) {
-	  operacionesUsuario = pOperaciones;	  
   }
   
 
@@ -44,9 +40,9 @@ public class Bitacora {
   }
 
   @SuppressWarnings("deprecation")
-  private boolean validarFechas(ArrayList<OperacionUsuario> operacionesActuales, OperacionUsuario pOperacionUsuario, Date pFechaActual) {
-	  if(pOperacionUsuario.getFechaAccion().getDate() ==  pFechaActual.getDate() 
-			  & pOperacionUsuario.getFechaAccion().getMonth() == pFechaActual.getMonth()) {
+  private boolean validarFechas(ArrayList<OperacionUsuario> operacionesActuales, OperacionUsuario operacionUsuario, Date fechaActual) {
+	  if(operacionUsuario.getFechaAccion().getDate() ==  fechaActual.getDate() 
+			  & operacionUsuario.getFechaAccion().getMonth() == fechaActual.getMonth()) {
 		return true;
 	  }
 	  return false;
@@ -88,5 +84,8 @@ public class Bitacora {
 	return resultado;
 	  
   }
-
+	  
+	  
+  
+  
 }
