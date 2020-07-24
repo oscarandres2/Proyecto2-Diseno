@@ -1,13 +1,19 @@
+package patrondecorator;
+
 package logicaestructural;
+
 import java.io.IOException;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
+
+
 import logicaaccesodatos.UtilBitacora;
 import modelo.Bitacora;
 import modelo.ICifrado;
 import modelo.Mensaje;
 import modelo.OperacionUsuario;
+
 
 
 
@@ -24,10 +30,9 @@ public class BitacoraDecorator extends SentimientosDecorator{
    * @param pDecoratedShape
    * @param operacion
    */
-  public BitacoraDecorator(ICifrado pDecoratedShape,OperacionUsuario pOperacion) {
-    super(pDecoratedShape,pOperacion);
+  public BitacoraDecorator(ICifrado pDecoratedShape,OperacionUsuario operacion) {
+	super(pDecoratedShape,operacion);
   }
-
 
   /**
    * Permite la operación de 
@@ -37,13 +42,14 @@ public class BitacoraDecorator extends SentimientosDecorator{
 	super.cifrar(pMensaje);
 	try {
       añadirBitacora(operacion.getTipoAccion(),operacion.getTextoOperacion(), operacion.getTipoCifradoDescifrado());
-	} catch (Exception e) {}
-	return pMensaje;
-	
-  }
+	} catch (Exception e) {
 		
-  
-	
+
+	public BitacoraDecorator(ICifrado pDecoratedShape,OperacionUsuario pOperacion) {
+		super(pDecoratedShape,pOperacion);
+	}
+	return pMensaje;
+  }
 
   /**
    * Permite la operación de 
