@@ -1,8 +1,16 @@
 package modelo;
 import java.util.Date;
-
 import javax.xml.bind.annotation.XmlElement;
 
+
+
+
+/**
+ * Clase OperacionUsuario que contiene los atributos y
+ * métodos necesarios.
+ * @author Oscar y Daniel
+ *
+ */
 public class OperacionUsuario {
 	
   private Date fechaAccion;
@@ -10,7 +18,12 @@ public class OperacionUsuario {
   private String textoOperacion;
   private String tipoCifradoDescifrado;
   
-  
+  /**
+   * Establece los datos a la clase.
+   * @param pTipoAccion
+   * @param pTextoOperacion
+   * @param pTipoCifradoDescifrado
+   */
   public void agregarDatos(String pTipoAccion,String pTextoOperacion,String pTipoCifradoDescifrado) {
     setTipoAccion(pTipoAccion);
     setFechaAccion(new Date());
@@ -32,6 +45,7 @@ public class OperacionUsuario {
   public Date getFechaAccion() {
 	 return fechaAccion;
   }
+  
 
   @XmlElement
   public void setFechaAccion(Date pDate) {
@@ -57,8 +71,6 @@ public class OperacionUsuario {
   public void setTipoCifradoDescifrado(String pTipoCifradoDescifrado) {
 	this.tipoCifradoDescifrado = pTipoCifradoDescifrado;
   }
- 
-
-
+  
 
 }
