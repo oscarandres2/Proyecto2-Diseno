@@ -1,17 +1,25 @@
 package logicadeinstanciacion;
+import controlador.ControladorCifradoDescifrado;
 
-import logicadecontroladorREVISAR.ControladorCifradoDescifrado;
 
+
+
+/**
+ * Clase SingletonControlar que contiene los atributos y
+ * métodos necesarios para la implementación del patrón
+ * Singleton.
+ * @author Oscar y Daniel
+ */
 public class SingletonControlador {
 
 private static ControladorCifradoDescifrado instance = new ControladorCifradoDescifrado();
 	
-	private SingletonControlador() {
-		
-	}
+  private SingletonControlador() {	
+  }
 	
-	public static ControladorCifradoDescifrado getInstance(){
-		 return instance;
-	}
+  public static ControladorCifradoDescifrado getInstance(){
+	return instance;
+  }
+  
 	
 }

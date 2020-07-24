@@ -1,21 +1,33 @@
 package modelo;
 
+
+/**
+ * Clase Administrador con los
+ * atributos y métodos necesarios para
+ * su implementación.
+ * @author Oscar y Daniel.
+ *
+ */
 public class Administrador {
 
-	private String nombre;
-	private String contrasena;
+  private String nombre = "daniel";
+  private String contrasena = "123";
 	
-	public Administrador(String nombre,String contrasena) {
-		this.nombre = nombre;
-		this.contrasena = contrasena;
-	}
+  /**
+   * Método constructor.
+   * @param pNombre
+   * @param pContrasena
+   */
+  public Administrador() {
+  }
 	
-	public String getNombre() {
-		return this.nombre;
-	}
+  public String getNombre() {
+	return this.nombre;
+  }
+
+  public String getContrasena() {
+	return this.contrasena;
+  }
 	
-	public String getContrasena() {
-		return this.contrasena;
-	}
-	
+  
 }

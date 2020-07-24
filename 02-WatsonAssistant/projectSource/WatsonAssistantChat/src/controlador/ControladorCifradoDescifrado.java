@@ -1,21 +1,19 @@
-package logicadecontroladorREVISAR;
+package controlador;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.xml.sax.SAXException;
-
+import logicaaccesodatos.UtilBitacora;
 import logicadeinstanciacion.SimpleCifradoFactory;
+import logicaestructural.BitacoraDecorator;
 import modelo.Bitacora;
 import modelo.ICifrado;
 import modelo.Mensaje;
 import modelo.OperacionUsuario;
-import patrondecorator.BitacoraDecorator;
-import patrondecorator.SentimientosDecorator;
-import util.UtilBitacora;
+
+
 
 
 /**
@@ -30,6 +28,9 @@ public class ControladorCifradoDescifrado {
   private ICifrado strategy;
   private OperacionUsuario operacion = new OperacionUsuario();
   
+  /**
+   * Constructor de la clase.
+   */
   public ControladorCifradoDescifrado() {}
   /**
    * Método que crea el cifrado o el descifrado
@@ -46,28 +47,28 @@ public class ControladorCifradoDescifrado {
    * @throws NoSuchMethodException
    * @throws SecurityException
    */
-  private ICifrado crearCifradoDescifrado(String pTipo, String subTipo, Object parametro) throws InstantiationException,
+  private ICifrado crearCifradoDescifrado(String pTipo, String pSubTipo, Object pParametro) throws InstantiationException,
     IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
     ICifrado cifrado;
 
-    cifrado = factory.crearCifradoDescifrado(pTipo, subTipo, parametro);
+    cifrado = factory.crearCifradoDescifrado(pTipo, pSubTipo, pParametro);
     
     return cifrado;
   }
   
   //metodo nuevo
-  private ICifrado crearCifradoDescifrado(String pTipo, String subTipo, Object parametro,OperacionUsuario operacion) throws InstantiationException,
+  private ICifrado crearCifradoDescifrado(String pTipo, String pSubTipo, Object pParametro,OperacionUsuario pOperacion) throws InstantiationException,
   IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 	  ICifrado cifrado;
 	
-	  cifrado = new BitacoraDecorator(factory.crearCifradoDescifrado(pTipo, subTipo, parametro),operacion);
+	  cifrado = new BitacoraDecorator(factory.crearCifradoDescifrado(pTipo, pSubTipo, pParametro),pOperacion);
 	  
 	  return cifrado;
 	}
   
-  private void asignarStrategy(String pTipo, String pSubTipo, String parametro) {
+  private void asignarStrategy(String pTipo, String pSubTipo, String pParametro) {
 	  try {
-		strategy = crearCifradoDescifrado(pTipo, pSubTipo, parametro);
+		strategy = crearCifradoDescifrado(pTipo, pSubTipo, pParametro);
 	} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException
 			| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 		e.printStackTrace();
@@ -75,9 +76,9 @@ public class ControladorCifradoDescifrado {
   }
   
   // metodo nuevo
-  private void asignarStrategy(String pTipo, String pSubTipo, String parametro,OperacionUsuario operacion) {
+  private void asignarStrategy(String pTipo, String pSubTipo, String pParametro,OperacionUsuario pOperacion) {
 	  try {
-		strategy = crearCifradoDescifrado(pTipo, pSubTipo, parametro,operacion);
+		strategy = crearCifradoDescifrado(pTipo, pSubTipo, pParametro,operacion);
 	} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException
 			| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 		e.printStackTrace();
@@ -93,16 +94,11 @@ public class ControladorCifradoDescifrado {
    */
   public String ejecutarCifrado(ArrayList<String> pLista) {
 	Mensaje mensaje = new Mensaje(pLista.get(0));	
-
     operacion.agregarDatos("Cifrado", mensaje.getMensajeViejo(), pLista.get(2));
-	
-	//asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
     asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3),operacion);
 	strategy.cifrar(mensaje);
 	return mensaje.getMensajeCifrado(); 
   }
-  
-  
   
   
   /**
@@ -114,34 +110,32 @@ public class ControladorCifradoDescifrado {
   public String ejecutarDescifrado(ArrayList<String> pLista) {
 	Mensaje mensaje = new Mensaje(pLista.get(0));
 	mensaje.setMensajeCifrado(pLista.get(0));
-	
     operacion.agregarDatos("Descifrado", mensaje.getMensajeViejo(), pLista.get(2));
-	
-	//asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3));
     asignarStrategy(pLista.get(2), pLista.get(1),pLista.get(3),operacion);
 	strategy.descifrar(mensaje);
 	return mensaje.getMensajeDescifrado();	
   }
   
+  
   /**
-   * Determina el tipo de fuente y criterio,
-   * posteriormente muestra la información.
-   * @param pTipoCriterio
-   * @param pTipoFuente
-   * @return
- * @throws JAXBException 
- * @throws SAXException 
- * @throws ParserConfigurationException 
- * @throws IOException 
-   */
+  * Determina el tipo de fuente y criterio,
+  * posteriormente muestra la información.
+  * @param pTipoCriterio
+  * @param pTipoFuente
+  * @return
+  * @throws JAXBException 
+  * @throws SAXException 
+  * @throws ParserConfigurationException 
+  * @throws IOException 
+  */
   public String mostrarFuenteTipoCriterio(String pTipoCriterio, String pTipoFuente) throws IOException, ParserConfigurationException, SAXException, JAXBException {
-	  Bitacora bitacora = UtilBitacora.determinarFuenteBitacora(pTipoFuente);
-		bitacora.operacionesUsuario = UtilBitacora.determinarCriterioBitacora(pTipoCriterio, bitacora);
-		if(pTipoFuente.equals("xml")) {
-		  return UtilBitacora.bitacoraToStringXML(bitacora);	
-		} 
-		return UtilBitacora.leerBitacora(bitacora,pTipoFuente);
-		
+    Bitacora bitacora = UtilBitacora.determinarFuenteBitacora(pTipoFuente);
+	  bitacora.operacionesUsuario = UtilBitacora.determinarCriterioBitacora(pTipoCriterio, bitacora);
+	  if(pTipoFuente.equals("xml")) {
+	    return UtilBitacora.bitacoraToStringXML(bitacora);	
+	  } 
+	  return UtilBitacora.leerBitacora(bitacora,pTipoFuente);	
   }	
+  
 
 }
