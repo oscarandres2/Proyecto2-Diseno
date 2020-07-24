@@ -10,17 +10,15 @@ package modelo;
  */
 public class Administrador {
 
-  private String nombre;
-  private String contrasena;
+  private String nombre = "daniel";
+  private String contrasena = "123";
 	
   /**
    * Método constructor.
    * @param pNombre
    * @param pContrasena
    */
-  public Administrador(String pNombre,String pContrasena) {
-	this.nombre = pNombre;
-	this.contrasena = pContrasena;
+  public Administrador() {
   }
 	
   public String getNombre() {
