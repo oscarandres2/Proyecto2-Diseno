@@ -1,8 +1,11 @@
-package logicaestructural;
+package patrondecorator;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions.Language;
 import com.ibm.watson.developer_cloud.language_translator.v3.LanguageTranslator;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslateOptions;
@@ -11,28 +14,23 @@ import com.ibm.watson.developer_cloud.service.security.IamOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+
 import modelo.ICifrado;
 import modelo.Mensaje;
 import modelo.OperacionUsuario;
 
-/**
- * Clase SentimientosDecorador contiene
- * los métodos y atributos necesarios para 
- * implementar el patrón decorador.
- * @author Oscar y Daniel
- *
- */
 public class SentimientosDecorator extends CifradoDecorator {
 
-  private String apiKeyToneAnalyzer = "0AC-rK7ZMahYaeGkPxmBhcCS1OWzrLLcxVyFjOLpDir2";
-  private IamOptions iAmOptionsToneAnalyzer = new IamOptions.Builder().apiKey(apiKeyToneAnalyzer).build();
-  private ToneAnalyzer service1 = new ToneAnalyzer("2017-09-21", iAmOptionsToneAnalyzer);
-  private String apiKeyTranslator = "rjkF7lgBgUhHFgi51DT12C1KWf_YknVn2FlEdo6C_X-6";
-  private IamOptions iAmOptionsTranslator = new IamOptions.Builder().apiKey(apiKeyTranslator).build();
-  private LanguageTranslator service2 = new LanguageTranslator("2018-05-01", iAmOptionsTranslator);
-
-	public SentimientosDecorator(ICifrado pDecoratedShape,OperacionUsuario pOperacion) {
-		super(pDecoratedShape,pOperacion);
+	private String apiKeyToneAnalyzer = "0AC-rK7ZMahYaeGkPxmBhcCS1OWzrLLcxVyFjOLpDir2";
+	private IamOptions iAmOptionsToneAnalyzer = new IamOptions.Builder().apiKey(apiKeyToneAnalyzer).build();
+	private ToneAnalyzer service1 = new ToneAnalyzer("2017-09-21", iAmOptionsToneAnalyzer);
+	
+	private String apiKeyTranslator = "rjkF7lgBgUhHFgi51DT12C1KWf_YknVn2FlEdo6C_X-6";
+	private IamOptions iAmOptionsTranslator = new IamOptions.Builder().apiKey(apiKeyTranslator).build();
+	private LanguageTranslator service2 = new LanguageTranslator("2018-05-01", iAmOptionsTranslator);
+	
+	public SentimientosDecorator(ICifrado pDecoratedShape,OperacionUsuario operacion) {
+		super(pDecoratedShape,operacion);
 	}
 	
 	public Mensaje cifrar(Mensaje pMensaje) {
@@ -120,9 +118,9 @@ public class SentimientosDecorator extends CifradoDecorator {
 		return false;
 	}
 	
-	private boolean validarSentimientos(ArrayList<String> pSentimientos) {
-		if(!pSentimientos.isEmpty()) {
-			for(String sentimiento: pSentimientos) {
+	private boolean validarSentimientos(ArrayList<String> sentimientos) {
+		if(!sentimientos.isEmpty()) {
+			for(String sentimiento: sentimientos) {
 				if(sentimiento.equals("Anger")) {
 					return false;
 				}
