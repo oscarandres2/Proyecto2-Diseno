@@ -44,9 +44,9 @@ public class Bitacora {
   }
 
   @SuppressWarnings("deprecation")
-  private boolean validarFechas(ArrayList<OperacionUsuario> operacionesActuales, OperacionUsuario operacionUsuario, Date fechaActual) {
-	  if(operacionUsuario.getFechaAccion().getDate() ==  fechaActual.getDate() 
-			  & operacionUsuario.getFechaAccion().getMonth() == fechaActual.getMonth()) {
+  private boolean validarFechas(ArrayList<OperacionUsuario> operacionesActuales, OperacionUsuario pOperacionUsuario, Date pFechaActual) {
+	  if(pOperacionUsuario.getFechaAccion().getDate() ==  pFechaActual.getDate() 
+			  & pOperacionUsuario.getFechaAccion().getMonth() == pFechaActual.getMonth()) {
 		return true;
 	  }
 	  return false;
