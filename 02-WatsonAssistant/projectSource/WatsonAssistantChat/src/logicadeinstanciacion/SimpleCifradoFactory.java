@@ -1,6 +1,7 @@
 package logicadeinstanciacion;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
 import modelo.ICifrado;
 
 
