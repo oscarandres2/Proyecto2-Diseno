@@ -15,8 +15,8 @@ import modelo.OperacionUsuario;
 
 public class BitacoraDecorator extends SentimientosDecorator{
 
-	public BitacoraDecorator(ICifrado pDecoratedShape,OperacionUsuario operacion) {
-		super(pDecoratedShape,operacion);
+	public BitacoraDecorator(ICifrado pDecoratedShape,OperacionUsuario pOperacion) {
+		super(pDecoratedShape,pOperacion);
 	}
 
 	public Mensaje cifrar(Mensaje pMensaje) {
