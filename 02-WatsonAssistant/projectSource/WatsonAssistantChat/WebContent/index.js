@@ -3,7 +3,7 @@ class App extends React.Component {
         super()
         this.state = {
             messages: [],
-        	ctx: {usr: 'ezamora'}
+        	ctx: {usr: 'Watson Assistant'}
         }
         this.sendMessage = this.sendMessage.bind(this)
     } 
@@ -15,7 +15,7 @@ class App extends React.Component {
     sendMessage(text) {
     	if(text != "") 
 	    	this.setState({
-	            messages: [...this.state.messages, {"usr": "user", "text": text}]
+	            messages: [...this.state.messages, {"usr": "usuario", "text": text}]
 	        })
     	
         var ctxStr = JSON.stringify(this.state.ctx);
@@ -94,7 +94,7 @@ class SendMessageForm extends React.Component {
                 <input
                     onChange={this.handleChange}
                     value={this.state.message}
-                    placeholder="Type your message and hit ENTER"
+                    placeholder="Ingrese su mensaje y presione ENTER"
                     type="text" />
             </form>
         )
@@ -102,7 +102,7 @@ class SendMessageForm extends React.Component {
 }
 
 function Title() {
-  return <p className="title">Simple chat app (For IBM cloud deploy)</p>
+  return <p className="title">Segundo proyecto diseño</p>
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
