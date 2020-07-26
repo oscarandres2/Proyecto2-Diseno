@@ -1,0 +1,1 @@
+var CodeMR_ProjectMetrics = {"Project Name":"WatsonAssistantChat", "Number of Highly Problematic Classes":0, "Number of Entities":14, "Number of Problematic Classes":0, "Class Lines of Code":423, "Number of External Packages":5, "Number of Packages":1, "Number of External Entities":13}

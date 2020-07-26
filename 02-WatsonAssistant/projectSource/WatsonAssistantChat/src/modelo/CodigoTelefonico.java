@@ -71,6 +71,7 @@ public class CodigoTelefonico implements ICifrado{
   }
   
   
+  
   private String desEncriptarLetra(String pLetra) {	
     String mensajefinal = "";
 	if(!pLetra.equals("*")) {
@@ -94,19 +95,23 @@ public class CodigoTelefonico implements ICifrado{
 	ArrayList<Integer> letra = new ArrayList<Integer>();	
 	int posicion = 0;
 	while(posicion < 8) {		
-	  int subPosicion = 0;
-	  while(alfabeto.get(posicion).size() > subPosicion) {		
-	    if(alfabeto.get(posicion).get(subPosicion) == Character.toUpperCase(pLetra)) {
-		  letra.add(posicion+2);
-		  letra.add(subPosicion+1);
-		  return letra;
-		}
-	  subPosicion++;
-	  }		
-	posicion++;
+	  letra = asignarLetra(posicion,letra,pLetra);		
+	  posicion++;
 	}
 	return null;	
   }
 	
+  private ArrayList<Integer> asignarLetra(int posicion,ArrayList<Integer> letra, Character pLetra) {
+    int subPosicion = 0;
+	while(alfabeto.get(posicion).size() > subPosicion) {		
+	  if(alfabeto.get(posicion).get(subPosicion) == Character.toUpperCase(pLetra)) {
+		letra.add(posicion+2);
+		letra.add(subPosicion+1);
+		return letra;
+      }
+	  subPosicion++;
+	}	
+	return null;
+  }
   
 }
